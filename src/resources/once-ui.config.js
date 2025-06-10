@@ -1,28 +1,62 @@
 // IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
 const baseURL = "https://demo.once-ui.com";
 
+const routes = {
+  "/": true,
+  "/about": true,
+  "/work": true,
+  "/blog": true,
+  "/gallery": true,
+};
+
+
+const display = {
+  location: true,
+  time: true,
+  themeSwitcher: true
+};
+
 // Import and set font for each variant
 import { Geist } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
 
-const primaryFont = Geist({
-  variable: "--font-primary",
+const heading = Geist({
+  variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
 });
 
-const monoFont = Geist_Mono({
+const body = Geist({
+  variable: "--font-body",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const label = Geist({
+  variable: "--font-label",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const code = Geist_Mono({
   variable: "--font-code",
   subsets: ["latin"],
   display: "swap",
 });
 
-const font = {
-  primary: primaryFont,
-  secondary: primaryFont,
-  tertiary: primaryFont,
-  code: monoFont,
+const fonts = {
+  heading: heading,
+  body: body,
+  label: label,
+  code: code,
 };
+
+// Enable password protection on selected routes
+// Set password in the .env file, refer to .env.example
+const protectedRoutes = {
+  "/work/automate-design-handovers-with-a-figma-to-code-pipeline": true,
+};
+
 
 // default customization applied to the HTML in the main layout.tsx
 const style = {
@@ -124,4 +158,4 @@ const social = {
   discord: "https://discord.com/invite/5EyAQ4eNdS",
 };
 
-export { baseURL, font, style, meta, schema, social, effects, dataStyle };
+export { baseURL, routes, protectedRoutes, fonts, style, meta, schema, social, effects, dataStyle, display };
