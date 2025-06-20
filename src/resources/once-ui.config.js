@@ -1,11 +1,12 @@
 // IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL = "https://demo.once-ui.com";
+const baseURL = "https://divyadhimanportfolio.vercel.app";
 
 const routes = {
   "/": true,
   "/about": true,
   "/work": true,
   "/blog": true,
+  "/projects": true,
   "/gallery": true,
 };
 

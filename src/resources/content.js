@@ -1,4 +1,4 @@
-const person = {
+export const person = {
     firstName: "Divya",
     lastName: "Dhiman",
     get name() {
@@ -12,11 +12,11 @@ const person = {
   };
   
 
-  const home = {
+  export const home = {
     path: "/",
     image: "/images/og/home.jpg",
     label: "Home",
-    title: `${person.name}'s Portfolio`,
+    title: `${person.firstName}'s Portfolio`,
     description: `Portfolio website showcasing my work as a ${person.role}`,
     headline: <>Building bridges between design and code</>,
     featured: {
@@ -34,7 +34,7 @@ Take a look around and let’s build something amazing together!
   };
 
 
-  const social = [
+  export const social = [
     // Links are automatically displayed.
     // Import new icons in /once-ui/icons.ts
     {
@@ -53,8 +53,14 @@ Take a look around and let’s build something amazing together!
       link: `mailto:${person.email}`,
     },
   ];
+
+  export const projects = {
+    path: "/projects",
+    label: "Projects",
+    title: `${person.firstName}'s Projects`,
+  }
   
-  const about = {
+  export const about = {
     path: "/about",
     label: "About",
     title: `About – ${person.name}`,
@@ -194,4 +200,3 @@ Kubernetes clusters, reducing incident response time by 45%.
       ],
     },
   };
-  export { person, social, home, about};

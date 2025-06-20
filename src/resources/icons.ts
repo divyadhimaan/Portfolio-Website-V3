@@ -36,6 +36,9 @@ import {
   PiImageDuotone,
 } from "react-icons/pi";
 
+import { GrProjects } from "react-icons/gr";
+
+
 import { FaDiscord, FaGithub, FaLinkedin, FaX, FaThreads } from "react-icons/fa6";
 
 export const iconLibrary: Record<string, IconType> = {
@@ -74,6 +77,7 @@ export const iconLibrary: Record<string, IconType> = {
   moon: HiMoon,
   sun: HiSun,
   document: HiOutlineDocument,
+  projects: GrProjects,
 };
 
 export type IconLibrary = typeof iconLibrary;

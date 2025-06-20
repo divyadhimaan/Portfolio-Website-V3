@@ -4,7 +4,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Fade, Flex, Line, ToggleButton } from "@once-ui-system/core";
-import { routes, display, person, about } from "@/resources";
+import { routes, display, person, about, projects } from "@/resources";
+
 import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Header.module.scss";
 
@@ -30,7 +31,7 @@ export const Header = () => {
         <Flex paddingLeft="24" fillWidth vertical="center" textVariant="body-default-s">
           {display.location && <Flex hide="s">{person.location}</Flex>}
         </Flex>
-        <Flex fillWidth horizontal="center">
+        <Flex fillWidth fillHeight horizontal="center">
           <Flex
             background="page"
             border="neutral-alpha-weak"
@@ -62,6 +63,23 @@ export const Header = () => {
                   />
                 </>
               )}
+              {routes["/projects"] && (
+                <>
+                  <ToggleButton
+                    className="s-flex-hide"
+                    prefixIcon="projects"
+                    href="/projects"
+                    label={projects.label}
+                    selected={pathname === "/projects"}
+                  />
+                  <ToggleButton
+                    className="s-flex-show"
+                    prefixIcon="projects"
+                    href="/projects"
+                    selected={pathname === "/projects"}
+                  />
+                </>
+              )}
               {display.themeSwitcher && (
                 <>
                   <Line background="neutral-alpha-medium" vert maxHeight="24" />
@@ -69,6 +87,18 @@ export const Header = () => {
                 </>
               )}
             </Flex>
+          </Flex>
+        </Flex>
+
+        <Flex fillWidth horizontal="end" vertical="center">
+          <Flex
+            paddingRight="12"
+            horizontal="end"
+            vertical="center"
+            textVariant="body-default-s"
+            gap="8"
+          >
+            <a href="https://www.linkedin.com/in/divya-dhiman/" target="_blank" rel="noopener noreferrer">LinkedIn</a>/<a href="https://github.com/divyadhimaan" target="_blank" rel="noopener noreferrer">GitHub</a>
           </Flex>
         </Flex>
 
