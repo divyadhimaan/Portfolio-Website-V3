@@ -205,7 +205,7 @@ import {
                         {experience.role}
                       </Text>
                       <Column as="ul" gap="16">
-                        {experience.achievements.map((achievement: JSX.Element, index: number) => (
+                        {experience.achievements.map((achievement: React.ReactNode, index: number) => (
                           <Text
                             as="li"
                             variant="body-default-m"
