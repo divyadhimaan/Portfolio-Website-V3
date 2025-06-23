@@ -18,7 +18,7 @@ export const person = {
     label: "Home",
     title: `${person.firstName}'s Portfolio`,
     description: `Portfolio website showcasing my work as a ${person.role}`,
-    headline: <>Building bridges between design and code</>,
+    headline: <>Turning Ideas into Implementation</>,
     featured: {
       display: false,
       title: <>Recent project: <strong className="ml-4">Once UI</strong></>,
@@ -26,9 +26,8 @@ export const person = {
     },
     subline: (
       <>
-        I'm Divya, a Software Engineer,  <br />
-        Welcome to my corner of the web! <br/>
-Take a look around and let’s build something amazing together!
+        I'm Divya, a Software Engineer.  <br />
+        This is more than a portfolio — it’s a playground of ideas. Take a stroll, and let’s build what’s next.
       </>
     ),
   };
@@ -82,9 +81,13 @@ Take a look around and let’s build something amazing together!
       description: (
         <>
           Divya Dhiman is a Bengaluru-based software developer with a passion for crafting thoughtful digital 
-          experiences through clean, functional code. With a strong foundation in full-stack development, 
+          experiences through clean, functional code. 
+          <br />
+          With a strong foundation in full-stack development, 
           she blends design sense with engineering precision to build intuitive web applications, 
-          interactive interfaces, and systems that scale. Her work bridges creativity and technology 
+          interactive interfaces, and systems that scale. 
+          <br />
+          Her work bridges creativity and technology 
           — from hackathon prototypes to production-ready platforms.
         </>
       ),
