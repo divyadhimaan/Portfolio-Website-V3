@@ -6,6 +6,8 @@ import { formatDate } from "@/app/utils/formatDate";
 import { ScrollToHash, CustomMDX } from "@/components";
 import { Metadata } from "next";
 
+export const runtime = 'nodejs';
+
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "work", "projects"]);
   return posts.map((post) => ({
@@ -16,7 +18,7 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string | string[] }>;
+  params: { slug: string | string[] };
 }): Promise<Metadata> {
   const routeParams = await params;
   const slugPath = Array.isArray(routeParams.slug) ? routeParams.slug.join('/') : routeParams.slug || '';
@@ -37,15 +39,14 @@ export async function generateMetadata({
 
 export default async function Project({
   params
-}: { params: Promise<{ slug: string | string[] }> }) {
+}: { params: { slug: string | string[] }}) {
   const routeParams = await params;
   const slugPath = Array.isArray(routeParams.slug) ? routeParams.slug.join('/') : routeParams.slug || '';
 
   let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
 
-  if (!post) {
-    notFound();
-  }
+  if (!post) return notFound();
+
 
   const avatars =
     post.metadata.team?.map((person) => ({
