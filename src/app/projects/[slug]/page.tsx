@@ -20,8 +20,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string | string[] };
 }): Promise<Metadata> {
-  const routeParams = await params;
-  const slugPath = Array.isArray(routeParams.slug) ? routeParams.slug.join('/') : routeParams.slug || '';
+  const slugPath = Array.isArray(params.slug) ? params.slug.join("/") : params.slug || "";
 
   const posts = getPosts(["src", "app", "work", "projects"])
   let post = posts.find((post) => post.slug === slugPath);
@@ -40,8 +39,7 @@ export async function generateMetadata({
 export default async function Project({
   params
 }: { params: { slug: string | string[] }}) {
-  const routeParams = await params;
-  const slugPath = Array.isArray(routeParams.slug) ? routeParams.slug.join('/') : routeParams.slug || '';
+  const slugPath = Array.isArray(params.slug) ? params.slug.join("/") : params.slug || "";
 
   let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
 
