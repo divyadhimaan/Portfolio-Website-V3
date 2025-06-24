@@ -11,6 +11,14 @@ export const person = {
     languages: [], 
   };
   
+  export const projects = {
+    path: "/projects",
+    label: "Projects",
+    title: `${person.firstName}'s Projects`,
+    description: `Design and dev projects by ${person.firstName}`,
+    // Create new project pages by adding a new .mdx file to app/blog/posts
+    // All projects will be listed on the /home and /work routes
+  };
 
   export const home = {
     path: "/",
@@ -52,12 +60,6 @@ export const person = {
       link: `mailto:${person.email}`,
     },
   ];
-
-  export const projects = {
-    path: "/projects",
-    label: "Projects",
-    title: `${person.firstName}'s Projects`,
-  }
   
   export const about = {
     path: "/about",
@@ -92,7 +94,7 @@ export const person = {
         </>
       ),
     },
-    work: {
+    projects: {
       display: true, // set to false to hide this section
       title: "Work Experience",
       experiences: [
@@ -203,3 +205,6 @@ Kubernetes clusters, reducing incident response time by 45%.
       ],
     },
   };
+
+
+

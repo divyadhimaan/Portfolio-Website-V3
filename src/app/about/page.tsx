@@ -13,7 +13,7 @@ import {
     Schema
   } from "@once-ui-system/core";
   import { baseURL, about, person, social } from "@/resources";
-//   import TableOfContents from "@/components/about/TableOfContents";
+  import TableOfContents from "@/components/about/TableOfContents";
   import styles from "@/components/about/about.module.scss";
   import React from "react";
   
@@ -35,9 +35,9 @@ import {
         items: [],
       },
       {
-        title: about.work.title,
-        display: about.work.display,
-        items: about.work.experiences.map((experience) => experience.company),
+        title: about.projects.title,
+        display: about.projects.display,
+        items: about.projects.experiences.map((experience) => experience.company),
       },
       {
         title: about.studies.title,
@@ -65,7 +65,7 @@ import {
             image: `${baseURL}${person.avatar}`,
           }}
         />
-        {/* {about.tableOfContent.display && (
+        {about.tableOfContent.display && (
           <Column
             left="0"
             style={{ top: "50%", transform: "translateY(-50%)" }}
@@ -76,7 +76,7 @@ import {
           >
             <TableOfContents structure={structure} about={about} />
           </Column>
-        )} */}
+        )}
         <Flex fillWidth mobileDirection="column" horizontal="center">
           {about.avatar.display && (
             <Column
@@ -185,13 +185,13 @@ import {
               </Column>
             )}
   
-            {about.work.display && (
+            {about.projects.display && (
               <>
-                <Heading as="h2" id={about.work.title} variant="display-strong-s" marginBottom="m">
-                  {about.work.title}
+                <Heading as="h2" id={about.projects.title} variant="display-strong-s" marginBottom="m">
+                  {about.projects.title}
                 </Heading>
                 <Column fillWidth gap="l" marginBottom="40">
-                  {about.work.experiences.map((experience, index) => (
+                  {about.projects.experiences.map((experience, index) => (
                     <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
                       <Flex fillWidth horizontal="space-between" vertical="end" marginBottom="4">
                         <Text id={experience.company} variant="heading-strong-l">
