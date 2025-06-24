@@ -6,7 +6,10 @@ import { formatDate } from "@/app/utils/formatDate";
 import { ScrollToHash, CustomMDX } from "@/components";
 import { Metadata } from "next";
 
-export const runtime = 'nodejs';
+
+interface PageParams {
+  params: { slug: string | string[] };
+}
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "work", "projects"]);
@@ -15,11 +18,7 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string | string[] };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const slugPath = Array.isArray(params.slug) ? params.slug.join("/") : params.slug || "";
 
   const posts = getPosts(["src", "app", "work", "projects"])
@@ -36,9 +35,7 @@ export async function generateMetadata({
   });
 }
 
-export default async function Project({
-  params
-}: { params: { slug: string | string[] }}) {
+export default async function Project({ params }: PageParams) {
   const slugPath = Array.isArray(params.slug) ? params.slug.join("/") : params.slug || "";
 
   let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
