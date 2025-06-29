@@ -82,7 +82,7 @@ export const person = {
       title: "Introduction",
       description: (
         <>
-          Divya Dhiman is a Bengaluru-based software developer with a passion for crafting thoughtful digital 
+          Divya Dhiman is a software developer with a passion for crafting thoughtful digital 
           experiences through clean, functional code. 
           <br />
           With a strong foundation in full-stack development, 
