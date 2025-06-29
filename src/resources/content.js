@@ -28,9 +28,9 @@ export const person = {
     description: `Portfolio website showcasing my work as a ${person.role}`,
     headline: <>Turning Ideas into Implementation</>,
     featured: {
-      display: true,
+      display: false,
       title: <>Recent project: <strong className="ml-4">DSA assistant - Dbot</strong></>,
-      href: "/work/building-once-ui-a-customizable-design-system",
+      href: "/projects/chat-assisstant-using-llama3",
     },
     subline: (
       <>
