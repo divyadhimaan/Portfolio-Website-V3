@@ -8,20 +8,21 @@ import { Metadata } from "next";
 
 
 interface PageParams {
-  params: { slug: string | string[] };
+  params: Promise<{ slug: string | string[] }>;
 }
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getPosts(["src", "app", "work", "projects"]);
+  const posts = getPosts(["src", "app", "projects", "projectwork"])
   return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
-  const slugPath = Array.isArray(params.slug) ? params.slug.join("/") : params.slug || "";
+  const { slug } = await params;
+  const slugPath = Array.isArray(slug) ? slug.join("/") : slug || "";
 
-  const posts = getPosts(["src", "app", "work", "projects"])
+  const posts = getPosts(["src", "app", "projects", "projectwork"])
   let post = posts.find((post) => post.slug === slugPath);
 
   if (!post) return {};
@@ -36,9 +37,10 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
 }
 
 export default async function Project({ params }: PageParams) {
-  const slugPath = Array.isArray(params.slug) ? params.slug.join("/") : params.slug || "";
+  const { slug } = await params;
+  const slugPath = Array.isArray(slug) ? slug.join("/") : slug || "";
 
-  let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
+  let post = getPosts(["src", "app", "projects", "projectwork"]).find((post) => post.slug === slugPath);
 
   if (!post) return notFound();
 
