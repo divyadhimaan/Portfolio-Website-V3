@@ -20,6 +20,8 @@ export function Projects({ range }: ProjectsProps) {
   return (
     <Column fillWidth gap="xl" marginBottom="40" paddingX="l">
       {displayedProjects.map((post, index) => (
+        <>
+        {console.log(`slug: ${post.slug} | sourceCodeLink: ${post.metadata.sourceCodeLink ?? "N/A"}`)}
         <ProjectCard
           priority={index < 2}
           key={post.slug}
@@ -30,7 +32,9 @@ export function Projects({ range }: ProjectsProps) {
           content={post.content}
           avatars={post.metadata.team?.map((member) => ({ src: member.avatar })) || []}
           link={post.metadata.link || ""}
+          sourceCodeLink={post.metadata.sourceCodeLink || ""}
         />
+        </>
       ))}
     </Column>
   );

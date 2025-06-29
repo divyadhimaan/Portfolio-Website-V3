@@ -6,7 +6,6 @@ import { formatDate } from "@/app/utils/formatDate";
 import { ScrollToHash, CustomMDX } from "@/components";
 import { Metadata } from "next";
 
-
 interface PageParams {
   params: Promise<{ slug: string | string[] }>;
 }
@@ -44,6 +43,21 @@ export default async function Project({ params }: PageParams) {
 
   if (!post) return notFound();
 
+  // Debug logging - remove in production
+  console.log('Post found:', post.slug);
+  console.log('Post metadata:', post.metadata);
+  console.log('Post content length:', post.content?.length || 'undefined');
+  console.log('Post content type:', typeof post.content);
+
+  // Safety check for content
+  if (!post.content) {
+    console.error('Post content is undefined for slug:', slugPath);
+    return (
+      <Column as="section" maxWidth="m" horizontal="center" gap="l">
+        <Text>Error: Post content not found</Text>
+      </Column>
+    );
+  }
 
   const avatars =
     post.metadata.team?.map((person) => ({
@@ -68,7 +82,7 @@ export default async function Project({ params }: PageParams) {
         }}
       />
       <Column maxWidth="xs" gap="16">
-        <Button data-border="rounded" href="/work" variant="tertiary" weight="default" size="s" prefixIcon="chevronLeft">
+        <Button data-border="rounded" href="/projects" variant="tertiary" weight="default" size="s" prefixIcon="chevronLeft">
           Projects
         </Button>
         <Heading variant="display-strong-s">{post.metadata.title}</Heading>
@@ -89,7 +103,13 @@ export default async function Project({ params }: PageParams) {
             {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
           </Text>
         </Flex>
-        <CustomMDX source={post.content} />
+        <div>
+          {post.content ? (
+            <CustomMDX source={post.content} />
+          ) : (
+            <Text>Content not available</Text>
+          )}
+        </div>
       </Column>
       <ScrollToHash />
     </Column>

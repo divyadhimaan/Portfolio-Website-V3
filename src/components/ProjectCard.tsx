@@ -19,6 +19,7 @@ interface ProjectCardProps {
   description: string;
   avatars: { src: string }[];
   link: string;
+  sourceCodeLink: string
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -29,7 +30,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   description,
   avatars,
   link,
+  sourceCodeLink
 }) => {
+
+  console.log("source code link: ", sourceCodeLink)
   return (
     <Column fillWidth gap="m">
       <Carousel
@@ -78,7 +82,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   style={{ margin: "0", width: "fit-content" }}
                   href={link}
                 >
-                  <Text variant="body-default-s">View project</Text>
+                  <Text variant="body-default-s">Live project</Text>
+                </SmartLink>
+              )}
+              {sourceCodeLink && (
+                <SmartLink
+                  suffixIcon="code"
+                  style={{ margin: "0", width: "fit-content" }}
+                  href={sourceCodeLink}
+                >
+                  <Text variant="body-default-s">Source Code</Text>
                 </SmartLink>
               )}
             </Flex>

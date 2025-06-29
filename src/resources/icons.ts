@@ -40,6 +40,8 @@ import { GrProjects } from "react-icons/gr";
 
 
 import { FaDiscord, FaGithub, FaLinkedin, FaX, FaThreads } from "react-icons/fa6";
+import { FaCodepen } from "react-icons/fa";
+
 
 export const iconLibrary: Record<string, IconType> = {
   chevronUp: HiChevronUp,
@@ -78,6 +80,7 @@ export const iconLibrary: Record<string, IconType> = {
   sun: HiSun,
   document: HiOutlineDocument,
   projects: GrProjects,
+  code: FaCodepen
 };
 
 export type IconLibrary = typeof iconLibrary;
