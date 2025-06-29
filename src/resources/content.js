@@ -40,6 +40,16 @@ export const person = {
     ),
   };
 
+  export const contactMe = {
+    display: false,
+    title: <>Tell me about your Idea {person.firstName}'s Newsletter</>,
+    description: (
+      <>
+        I occasionally write about design, technology, and share thoughts on the intersection of
+        creativity and engineering.
+      </>
+    ),
+  };
 
   export const social = [
     // Links are automatically displayed.

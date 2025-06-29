@@ -1,4 +1,3 @@
-"use client";
 
 import {
   Heading,
@@ -12,7 +11,10 @@ import {
   Avatar,
   Row
 } from "@once-ui-system/core";
-import { home, about, person, baseURL } from "@/resources";
+import { Projects } from "@/components/projects/Projects";
+// import { Contact } from "@/components/contact";
+
+import { home, about, person, baseURL, contactMe } from "@/resources";
 
 
 export default function Home() {
@@ -76,6 +78,11 @@ export default function Home() {
           </RevealFx>
         </Column>
       </Column>
+      <RevealFx translateY="16" delay={0.6}>
+        <Projects range={[1, 1]} />
+      </RevealFx>
+      {/* {contactMe.display && <Contact newsletter={newsletter} />} */}
+
     </Column>
   );
 }

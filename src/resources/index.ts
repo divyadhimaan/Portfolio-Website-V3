@@ -4,7 +4,8 @@ export {
   social,
   home,
   about,
-  projects
+  projects,
+  contactMe,
 } from "./content";
 
-export { display, routes, protectedRoutes, baseURL, fonts, style, meta, schema, effects, dataStyle } from "./once-ui.config";
+export { display, routes, protectedRoutes, baseURL, fonts, style, meta, schema, effects, dataStyle, contact } from "./once-ui.config";
