@@ -8,6 +8,8 @@ import {
   Heading,
   SmartLink,
   Text,
+  Badge,
+  Row,
 } from "@once-ui-system/core";
 
 interface ProjectCardProps {
@@ -20,6 +22,7 @@ interface ProjectCardProps {
   avatars: { src: string }[];
   link: string;
   sourceCodeLink: string
+  languages: string[];
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -30,10 +33,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   description,
   avatars,
   link,
-  sourceCodeLink
+  sourceCodeLink, 
+  languages
 }) => {
 
-  console.log("source code link: ", sourceCodeLink)
   return (
     <Column fillWidth gap="m">
       <Carousel
@@ -51,13 +54,22 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         paddingBottom="24"
         gap="l"
       >
-        {title && (
-          <Flex flex={5}>
-            <Heading as="h2" wrap="balance" variant="heading-strong-xl">
-              {title}
-            </Heading>
-          </Flex>
-        )}
+          {title && (
+            <Flex flex={5} direction="column"  gap="12">
+              <Heading as="h2" wrap="balance" variant="heading-strong-xl">
+                {title}
+              </Heading>
+              <Flex gap="8" wrap>
+              {languages?.length > 0 && ( 
+                  languages.map((lang, index) => (
+                  <Badge key={index} background="brand-alpha-weak" paddingX="12" paddingY="4" onBackground="neutral-strong" textVariant="label-default-s" arrow={false}>
+                    <Row paddingY="2">{lang}</Row>
+                  </Badge>
+                ))
+              )}
+              </Flex>
+            </Flex>
+          )}
         {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
           <Column flex={7} gap="16">
             {avatars?.length > 0 && <AvatarGroup avatars={avatars} size="m" reverse />}
@@ -95,6 +107,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 </SmartLink>
               )}
             </Flex>
+            
+            
+            
           </Column>
         )}
       </Flex>
