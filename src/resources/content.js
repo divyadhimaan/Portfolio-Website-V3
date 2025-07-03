@@ -104,7 +104,7 @@ export const person = {
         </>
       ),
     },
-    projects: {
+    work: {
       display: true, // set to false to hide this section
       title: "Work Experience",
       experiences: [
@@ -112,6 +112,7 @@ export const person = {
           company: "JPMorgan Chase",
           timeframe: "2023 - Present",
           role: "Software Developer Engineer",
+          link: "https://www.jpmorganchase.com",
           achievements: [
             <>
               Engineered an LLM-powered tool using Python and React that translated natural language into SQL,
@@ -151,8 +152,9 @@ software delivery.
         },
         {
           company: "JPMorgan Chase",
-          timeframe: "Summer 2022",
+          timeframe: "Summer 2022 & Fall 2023",
           role: "SDE Intern",
+          link: "https://www.jpmorganchase.com",
           achievements: [
             <>
               Executed a Java Spring Boot application deployed on AWS ECS, reducing deployment time by 60%.
@@ -161,6 +163,8 @@ software delivery.
               Curated a DataDog monitoring dashboard to track and optimize the health and performance of AWS
 Kubernetes clusters, reducing incident response time by 45%.
             </>,
+            <>
+              Built an intuitive React-based interface for uploading files to AWS S3 landing zones, triggering automated ingestion pipelines via cloud-native services.            </>
           ],
           images: [],
         },
@@ -172,6 +176,7 @@ Kubernetes clusters, reducing incident response time by 45%.
       institutions: [
         {
           name: "Thapar Institute of Engineering and Technology",
+          link: "https://www.thapar.edu/",
           description: <>Studied software engineering.</>,
         },
       ],

@@ -16,6 +16,7 @@ import {
   import TableOfContents from "@/components/about/TableOfContents";
   import styles from "@/components/about/about.module.scss";
   import React from "react";
+import Link from "next/link";
   
   export async function generateMetadata() {
     return Meta.generate({
@@ -35,9 +36,9 @@ import {
         items: [],
       },
       {
-        title: about.projects.title,
-        display: about.projects.display,
-        items: about.projects.experiences.map((experience) => experience.company),
+        title: about.work.title,
+        display: about.work.display,
+        items: about.work.experiences.map((experience) => experience.company),
       },
       {
         title: about.studies.title,
@@ -185,17 +186,17 @@ import {
               </Column>
             )}
   
-            {about.projects.display && (
+            {about.work.display && (
               <>
-                <Heading as="h2" id={about.projects.title} variant="display-strong-s" marginBottom="m">
-                  {about.projects.title}
+                <Heading as="h2" id={about.work.title} variant="display-strong-s" marginBottom="m">
+                  {about.work.title}
                 </Heading>
                 <Column fillWidth gap="l" marginBottom="40">
-                  {about.projects.experiences.map((experience, index) => (
+                  {about.work.experiences.map((experience, index) => (
                     <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
                       <Flex fillWidth horizontal="space-between" vertical="end" marginBottom="4">
                         <Text id={experience.company} variant="heading-strong-l">
-                          {experience.company}
+                          <a href={experience.link} target="_blank" rel="noopener noreferrer">{experience.company}</a>
                         </Text>
                         <Text variant="heading-default-xs" onBackground="neutral-weak">
                           {experience.timeframe}
@@ -256,7 +257,7 @@ import {
                   {about.studies.institutions.map((institution, index) => (
                     <Column key={`${institution.name}-${index}`} fillWidth gap="4">
                       <Text id={institution.name} variant="heading-strong-l">
-                        {institution.name}
+                        <a href={institution.link} target="_blank" rel="noopener noreferrer">{institution.name}</a>
                       </Text>
                       <Text variant="heading-default-xs" onBackground="neutral-weak">
                         {institution.description}
