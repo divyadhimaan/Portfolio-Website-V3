@@ -5,3 +5,4 @@ Welcome to my personal portfolio website! This site showcases my work, skills, e
 
 <!-- to do
 - fix project description -->
+![Alt text](image.png)![Alt text](image.png)![Alt text](image.png)
