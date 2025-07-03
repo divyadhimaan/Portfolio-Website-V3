@@ -164,7 +164,11 @@ software delivery.
 Kubernetes clusters, reducing incident response time by 45%.
             </>,
             <>
-              Built an intuitive React-based interface for uploading files to AWS S3 landing zones, triggering automated ingestion pipelines via cloud-native services.            </>
+              Built an intuitive React-based interface for uploading files to AWS S3 landing zones, triggering automated ingestion pipelines via cloud-native services.            
+            </>,
+            <>
+              Implemented Splunk log filtering to streamline log analysis and enable early and efficient detection of errors and failures.
+            </>
           ],
           images: [],
         },
