@@ -92,15 +92,13 @@ export const person = {
       title: "Introduction",
       description: (
         <>
-          Divya Dhiman is a software developer with a passion for crafting thoughtful digital 
-          experiences through clean, functional code. 
+          I'm a software developer with a passion for crafting thoughtful digital experiences through clean, functional code.
           <br />
-          With a strong foundation in full-stack development, 
-          she blends design sense with engineering precision to build intuitive web applications, 
-          interactive interfaces, and systems that scale. 
+          With a strong foundation in full-stack development, I blend design sense with engineering precision 
+          to build intuitive web applications, interactive interfaces, and scalable systems.
+
           <br />
-          Her work bridges creativity and technology 
-          — from hackathon prototypes to production-ready platforms.
+          My work bridges creativity and technology,  from hackathon prototypes to production-ready platforms.
         </>
       ),
     },
@@ -224,6 +222,4 @@ Kubernetes clusters, reducing incident response time by 45%.
       ],
     },
   };
-
-
 
