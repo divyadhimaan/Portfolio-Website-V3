@@ -11,7 +11,7 @@ interface PageParams {
 }
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getPosts(["src", "app", "projects", "projectwork"])
+  const posts = getPosts(["src", "resources", "projectwork"])
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   const { slug } = await params;
   const slugPath = Array.isArray(slug) ? slug.join("/") : slug || "";
 
-  const posts = getPosts(["src", "app", "projects", "projectwork"])
+  const posts = getPosts(["src", "resources", "projectwork"]);
   let post = posts.find((post) => post.slug === slugPath);
 
   if (!post) return {};
@@ -39,7 +39,7 @@ export default async function Project({ params }: PageParams) {
   const { slug } = await params;
   const slugPath = Array.isArray(slug) ? slug.join("/") : slug || "";
 
-  let post = getPosts(["src", "app", "projects", "projectwork"]).find((post) => post.slug === slugPath);
+  let post = getPosts(["src", "resources", "projectwork"]).find((post) => post.slug === slugPath);
 
   if (!post) return notFound();
 
