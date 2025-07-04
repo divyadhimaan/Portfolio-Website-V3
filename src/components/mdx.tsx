@@ -172,12 +172,59 @@ const components = {
   SmartLink: dynamic(() => import("@once-ui-system/core").then(mod => mod.SmartLink)),
 };
 
-type CustomMDXProps = MDXRemoteProps & {
+type CustomMDXProps = {
+  source: string;
   components?: typeof components;
 };
 
-export function CustomMDX(props: CustomMDXProps) {
-  return (
-    <MDXRemote {...props} components={{ ...components, ...(props.components || {}) }} />
-  );
+export function CustomMDX({ source, components: additionalComponents }: CustomMDXProps) {
+  // Add error handling and validation
+  if (!source) {
+    console.error('CustomMDX: source is required');
+    return <Text>No content available</Text>;
+  }
+
+  if (typeof source !== 'string') {
+    console.error('CustomMDX: source must be a string, received:', typeof source);
+    return <Text>Invalid content format</Text>;
+  }
+
+  try {
+    // If the source is HTML, render it directly
+    if (source.includes('<') && source.includes('>') && !source.includes('---')) {
+      return (
+        <div 
+          dangerouslySetInnerHTML={{ __html: source }}
+          className="prose prose-lg max-w-none"
+        />
+      );
+    }
+
+    // Otherwise, render as MDX
+    return (
+      <MDXRemote 
+        source={source}
+        components={{ ...components, ...(additionalComponents || {}) }}
+      />
+    );
+  } catch (error) {
+    console.error('Error rendering CustomMDX:', error);
+    return (
+      <div>
+        <Text>Error rendering content</Text>
+        <details style={{ marginTop: '1rem', padding: '1rem', background: '#f5f5f5', borderRadius: '4px' }}>
+          <summary>Debug Information</summary>
+          <pre style={{ fontSize: '12px', whiteSpace: 'pre-wrap', marginTop: '0.5rem' }}>
+            Error: {error instanceof Error ? error.message : 'Unknown error'}
+            {'\n'}
+            Source type: {typeof source}
+            {'\n'}
+            Source length: {source?.length || 'N/A'}
+            {'\n'}
+            Source preview: {source?.slice(0, 200) || 'No source'}
+          </pre>
+        </details>
+      </div>
+    );
+  }
 }

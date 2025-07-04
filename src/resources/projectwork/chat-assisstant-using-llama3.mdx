@@ -1,0 +1,56 @@
+---
+title: "dBot - A chat based Productivity Assistant Powered by LLaMA 3"
+publishedAt: "2024-05-10"
+summary: "A sleek, session-aware chatbot interface built with React and Flask/Node.js, designed for daily planning, task tracking, and personalized interactions powered by Meta’s LLaMA 3 models."
+images:
+  - "/images/projects/dbot/cover-01.png"
+  - "/images/projects/dbot/cover-02.png"
+team:
+  - name: "Divya Dhiman"
+    role: "Full Stack Developer"
+    avatar: "/images/avatar.jpeg"
+    linkedIn: "https://www.linkedin.com/in/divya-dhiman/"
+link: "https://d-bot-jet.vercel.app"
+sourceCodeLink: "https://github.com/divyadhimaan/dsa-progress-chatbot"
+languages: 
+  - "Next.js" 
+  - "Python"
+  - "Flask"
+  - "GenAI"
+---
+
+## Overview
+
+This project is a minimalist, chat-based interface built to assist with productivity workflows like daily planning, task marking, and personalized bot interactions. It provides an intuitive front-end experience powered by a lightweight Flask/Node.js backend and enhanced with LLaMA 3 models for smart, contextual responses. Designed with both performance and simplicity in mind, this assistant enables focused, interactive sessions for individuals aiming to streamline their day. Current instance is used for DSA assisstance.
+
+## Key Features
+
+- **Conversational Interface**: A modern chat UI with clean left/right-aligned message bubbles for user and bot interactions.
+- **Smart Suggestions**: Includes dynamic suggestion buttons like “What is the plan for today?” to guide user engagement.
+- **Typing Placeholders**: Displays an animated `"..."` bubble while waiting for bot responses, simulating real-time conversation.
+- **LeetCode Integration**: Bot responses include clickable links to LeetCode problems for daily interview prep and coding workflows.
+- **Session Memory**: Supports session-based temporary storage for fluid conversations and persistent memory stored in MongoDB for long-term recall.
+- **Mobile-Responsive**: Fully responsive UI optimized for mobile devices for on-the-go productivity.
+- **API Communication**: Axios-based async requests connect the frontend with the backend seamlessly.
+
+## Technologies Used
+
+- **React + Next.js**: For building the dynamic and responsive front-end interface.
+- **Flask / Node.js**: Two interchangeable backends tested for flexibility in API handling.
+- **MongoDB**: For persisting chat memory and completed task states across sessions.
+- **Axios**: For fast, promise-based API calls between client and server.
+- **Meta’s LLaMA 3 Models**:  
+  - `llama3-8b-8192`: Optimized for fast, lightweight interactions.  
+  - `llama3-70b-8192`: Delivers rich, in-depth responses when needed.
+
+## Challenges and Learnings
+
+One challenge was ensuring that the chat experience felt snappy and engaging while maintaining memory context between interactions. Managing front-end state with dynamic suggestions and bot "typing" feedback required precise state control and async timing. Switching between different LLaMA 3 model variants also helped balance latency with response quality, teaching us how to tailor AI model use based on task complexity.
+
+
+## Outcome
+
+This chatbot has proven to be a lightweight yet powerful tool for personal planning and coding prep. Whether you're planning your day, revising solved questions, or just having a quick interaction, the bot adapts to the user’s workflow. The platform serves as a practical template for building conversational tools that blend user experience with AI-powered productivity.
+
+---
+

@@ -25,6 +25,7 @@ type Metadata = {
 import { notFound } from 'next/navigation';
 
 function getMDXFiles(dir: string) {
+  console.log("Checking if directory exists:", dir);
   if (!fs.existsSync(dir)) {
     throw new Error("Not Found");
     // notFound();
@@ -73,5 +74,6 @@ function getMDXData(dir: string) {
 
 export function getPosts(customPath = ["", "", "", ""]) {
   const postsDir = path.join(process.cwd(), ...customPath);
+  console.log("Resolved posts directory:", postsDir);
   return getMDXData(postsDir);
 }
