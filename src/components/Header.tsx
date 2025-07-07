@@ -97,6 +97,7 @@ export const Header = () => {
             vertical="center"
             textVariant="body-default-s"
             gap="8"
+            className="s-flex-hide"
           >
             <a href="https://www.linkedin.com/in/divya-dhiman/" target="_blank" rel="noopener noreferrer">LinkedIn</a>/<a href="https://github.com/divyadhimaan" target="_blank" rel="noopener noreferrer">GitHub</a>
           </Flex>
