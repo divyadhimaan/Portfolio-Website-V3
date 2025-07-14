@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Fade, Flex, Line, ToggleButton } from "@once-ui-system/core";
-import { routes, display, person, about, projects } from "@/resources";
+import { routes, display, person, about, projects, blog } from "@/resources";
 
 import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Header.module.scss";
@@ -77,6 +77,23 @@ export const Header = () => {
                     prefixIcon="projects"
                     href="/projects"
                     selected={pathname === "/projects"}
+                  />
+                </>
+              )}
+              {routes["/blog"] && (
+                <>
+                  <ToggleButton
+                    className="s-flex-hide"
+                    prefixIcon="blog"
+                    href="/blog"
+                    label={blog.label}
+                    selected={pathname === "/blog"}
+                  />
+                  <ToggleButton
+                    className="s-flex-show"
+                    prefixIcon="blog"
+                    href="/blog"
+                    selected={pathname === "/blog"}
                   />
                 </>
               )}

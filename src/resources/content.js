@@ -16,7 +16,7 @@ export const person = {
     label: "Projects",
     title: `${person.firstName}'s Projects`,
     description: `Design and dev projects by ${person.firstName}`,
-    // Create new project pages by adding a new .mdx file to app/projects/projectwork
+    // Create new project pages by adding a new .mdx file to resources/projectwork
     // All projects will be listed on the /home and /work routes
   };
 
@@ -224,4 +224,11 @@ Kubernetes clusters, reducing incident response time by 45%.
   };
 
   
-
+export const blog = {
+  path: "/blog",
+  label: "Blog",
+  title: `${person.firstName}'s Blogs`,
+  description: `Read what ${person.firstName} has been up to recently`,
+  // Create new project pages by adding a new .mdx file to resources/blogs
+  // All projects will be listed on the /blogs routes
+};
