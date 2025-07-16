@@ -26,12 +26,15 @@ import { notFound } from 'next/navigation';
 
 function getMDXFiles(dir: string) {
   console.log("Checking if directory exists:", dir);
+  console.log("Directory exists:", fs.existsSync(dir));
   if (!fs.existsSync(dir)) {
     throw new Error("Not Found");
     // notFound();
   }
 
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
+  const files =  fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
+  console.log("MDX files found:", files);
+  return files;
 }
 
 function readMDXFile(filePath: string) {
@@ -59,21 +62,42 @@ function readMDXFile(filePath: string) {
 }
 
 function getMDXData(dir: string) {
+  console.log("Starting getMDXData for directory:", dir);
   const mdxFiles = getMDXFiles(dir);
-  return mdxFiles.map((file) => {
-    const { metadata, content } = readMDXFile(path.join(dir, file));
-    const slug = path.basename(file, path.extname(file));
+  console.log("Processing files:", mdxFiles);
 
-    return {
-      metadata,
-      slug,
-      content,
-    };
-  });
+  const results = [];
+  
+  for (const file of mdxFiles) {
+    try {
+      console.log("Processing file:", file);
+      const { metadata, content } = readMDXFile(path.join(dir, file));
+      const slug = path.basename(file, path.extname(file));
+      console.log("Generated slug:", slug, "from file:", file);
+      
+      const result = {
+        metadata,
+        slug,
+        content,
+      };
+      
+      results.push(result);
+      console.log("Successfully processed file:", file);
+    } catch (error) {
+      console.error("Error processing file:", file);
+      console.error("Error details:", error);
+      throw error;
+    }
+  }
+  
+  console.log("getMDXData completed successfully, processed", results.length, "files");
+  return results;
 }
 
-export function getPosts(customPath = ["", "", "", ""]) {
+export function getPosts(customPath: string[] = []) {
   const postsDir = path.join(process.cwd(), ...customPath);
   console.log("Resolved posts directory:", postsDir);
+  console.log("Current working directory:", process.cwd());
+  
   return getMDXData(postsDir);
 }
