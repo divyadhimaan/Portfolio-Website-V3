@@ -6,6 +6,8 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { formatDate } from "@/app/utils/formatDate";
 import { getPosts } from "@/app/utils/utils";
 import { Metadata } from 'next';
+import MarkdownRenderer from "@/components/MarkdownRenderer"
+
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "resources", "blogs"]);
@@ -83,8 +85,9 @@ export default async function Blog({
               {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
             </Text>
           </Row>
-          <Column as="article" fillWidth>
+          <Column as="article" fillWidth >
             <CustomMDX source={await serialize(post.content)} />
+            {/* <MarkdownRenderer content={post.content} /> */}
           </Column>
           <ScrollToHash />
         </Column>
