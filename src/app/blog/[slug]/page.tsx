@@ -6,7 +6,6 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { formatDate } from "@/app/utils/formatDate";
 import { getPosts } from "@/app/utils/utils";
 import { Metadata } from 'next';
-import MarkdownRenderer from "@/components/MarkdownRenderer"
 
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
@@ -87,12 +86,11 @@ export default async function Blog({
           </Row>
           <Column as="article" fillWidth >
             <CustomMDX source={await serialize(post.content)} />
-            {/* <MarkdownRenderer content={post.content} /> */}
           </Column>
           <ScrollToHash />
         </Column>
     </Row>
-    {/* <Column maxWidth={12} paddingLeft="40" fitHeight position="sticky" top="80" gap="16" hide="m">
+    <Column maxWidth={12} paddingLeft="40" fitHeight position="sticky" top="80" gap="16" hide="m">
       <Row
         gap="12"
         paddingLeft="2"
@@ -104,7 +102,7 @@ export default async function Blog({
         On this page
       </Row>
       <HeadingNav fitHeight/>
-    </Column> */}
+    </Column>
     </Row>
   );
 }
