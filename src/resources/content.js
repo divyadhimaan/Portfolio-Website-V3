@@ -232,3 +232,10 @@ export const blog = {
   // Create new project pages by adding a new .mdx file to resources/blogs
   // All projects will be listed on the /blogs routes
 };
+
+export const gallery = {
+  path: "/gallery",
+  label: "Gallery",
+  title: `Photo gallery – ${person.name}`,
+  description: `A photo collection by ${person.name}`,
+};
