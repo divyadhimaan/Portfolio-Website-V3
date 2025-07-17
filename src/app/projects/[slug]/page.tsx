@@ -5,6 +5,8 @@ import { baseURL, about, person, projects } from "@/resources";
 import { formatDate } from "@/app/utils/formatDate";
 import { ScrollToHash, CustomMDX } from "@/components";
 import { Metadata } from "next";
+import { serialize } from 'next-mdx-remote/serialize'
+
 
 interface PageParams {
   params: Promise<{ slug: string | string[] }>;
@@ -104,11 +106,7 @@ export default async function Project({ params }: PageParams) {
           </Text>
         </Flex>
         <div>
-          {post.content ? (
-            <CustomMDX source={post.content} />
-          ) : (
-            <Text>Content not available</Text>
-          )}
+          <CustomMDX source={await serialize(post.content)} />
         </div>
       </Column>
       <ScrollToHash />

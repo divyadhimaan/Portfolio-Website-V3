@@ -1,4 +1,9 @@
-import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
+
+"use client";
+
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+
+
 import React, { ReactNode } from "react";
 import dynamic from "next/dynamic";
 
@@ -173,7 +178,7 @@ const components = {
 };
 
 type CustomMDXProps = {
-  source: string;
+  source: MDXRemoteSerializeResult;
   components?: typeof components;
 };
 
@@ -184,27 +189,22 @@ export function CustomMDX({ source, components: additionalComponents }: CustomMD
     return <Text>No content available</Text>;
   }
 
-  if (typeof source !== 'string') {
-    console.error('CustomMDX: source must be a string, received:', typeof source);
-    return <Text>Invalid content format</Text>;
-  }
-
   try {
     // If the source is HTML, render it directly
-    if (source.includes('<') && source.includes('>') && !source.includes('---')) {
-      return (
-        <div 
-          dangerouslySetInnerHTML={{ __html: source }}
-          className="prose prose-lg max-w-none"
-        />
-      );
-    }
+    // if (source.includes('<') && source.includes('>') && !source.includes('---')) {
+    //   return (
+    //     <div 
+    //       dangerouslySetInnerHTML={{ __html: source }}
+    //       className="prose prose-lg max-w-none"
+    //     />
+    //   );
+    // }
 
     // Otherwise, render as MDX
     return (
-      <MDXRemote 
-        source={source}
-        components={{ ...components, ...(additionalComponents || {}) }}
+      <MDXRemote
+      {...source}
+        components={additionalComponents}
       />
     );
   } catch (error) {
@@ -219,9 +219,6 @@ export function CustomMDX({ source, components: additionalComponents }: CustomMD
             {'\n'}
             Source type: {typeof source}
             {'\n'}
-            Source length: {source?.length || 'N/A'}
-            {'\n'}
-            Source preview: {source?.slice(0, 200) || 'No source'}
           </pre>
         </details>
       </div>

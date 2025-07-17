@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { CustomMDX, ScrollToHash } from "@/components";
 import { Meta, Schema, AvatarGroup, Button, Column, Heading, HeadingNav, Icon, Row, Text } from "@once-ui-system/core";
 import { baseURL, about, blog, person } from "@/resources";
+import { serialize } from 'next-mdx-remote/serialize'
 import { formatDate } from "@/app/utils/formatDate";
 import { getPosts } from "@/app/utils/utils";
 import { Metadata } from 'next';
@@ -83,7 +84,7 @@ export default async function Blog({
             </Text>
           </Row>
           <Column as="article" fillWidth>
-            <CustomMDX source={post.content} />
+            <CustomMDX source={await serialize(post.content)} />
           </Column>
           <ScrollToHash />
         </Column>

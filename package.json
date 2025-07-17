@@ -1,6 +1,6 @@
 {
   "name": "@once-ui-system/portfolio-website-v3",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
-    "@next/mdx": "^15.3.4",
+    "@next/mdx": "^15.3.1",
     "@once-ui-system/core": "^1.1.0",
     "classnames": "^2.5.1",
     "gray-matter": "^4.0.3",

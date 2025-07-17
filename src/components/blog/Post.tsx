@@ -58,7 +58,7 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
                     { post.metadata.tag &&
                         <Tag
                             className="mt-12"
-                            label={post.metadata.tag}
+                            label={post.metadata.tag.join(', ')}
                             variant="neutral" />
                     }
                 </Column>

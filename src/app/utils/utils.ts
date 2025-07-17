@@ -25,56 +25,82 @@ type Metadata = {
 import { notFound } from 'next/navigation';
 
 function getMDXFiles(dir: string) {
-  console.log("Checking if directory exists:", dir);
-  console.log("Directory exists:", fs.existsSync(dir));
   if (!fs.existsSync(dir)) {
-    throw new Error("Not Found");
-    // notFound();
+    console.error("Directory does not exist:", dir);
+    return [];
   }
 
   const files =  fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
-  console.log("MDX files found:", files);
   return files;
 }
 
 function readMDXFile(filePath: string) {
     if (!fs.existsSync(filePath)) {
-        notFound();
+      console.error("File does not exist:", filePath);
+      return null;
     }
 
   const rawContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(rawContent);
 
-  const metadata: Metadata = {
-    title: data.title || "",
-    publishedAt: data.publishedAt,
-    summary: data.summary || "",
-    image: data.image || "",
-    images: data.images || [],
-    tag: data.tag || [],
-    team: data.team || [],
-    link: data.link || "",
-    sourceCodeLink: data.sourceCodeLink || "",
-    languages: data.languages || [],
-  };
+  if (!content) {
+    return notFound();
+  }
 
-  return { metadata, content };
+  try {
+    const rawContent = fs.readFileSync(filePath, "utf-8");
+    
+    const { data, content } = matter(rawContent);
+
+    if (!content || typeof content !== 'string') {
+      console.error("Invalid content in file:", filePath);
+      return null;
+    }
+
+    const metadata: Metadata = {
+      title: data.title || "",
+      publishedAt: data.publishedAt,
+      summary: data.summary || "",
+      image: data.image || "",
+      images: data.images || [],
+      tag: data.tag || [],
+      team: data.team || [],
+      link: data.link || "",
+      sourceCodeLink: data.sourceCodeLink || "",
+      languages: data.languages || [],
+    };
+
+    return { metadata, content };
+  } catch (error) {
+    console.error("Error reading/parsing MDX file:", filePath);
+    console.error("Error details:", error);
+    return null;
+  }
 }
 
 function getMDXData(dir: string) {
-  console.log("Starting getMDXData for directory:", dir);
   const mdxFiles = getMDXFiles(dir);
-  console.log("Processing files:", mdxFiles);
 
   const results = [];
   
   for (const file of mdxFiles) {
     try {
-      console.log("Processing file:", file);
-      const { metadata, content } = readMDXFile(path.join(dir, file));
+      const fileData = readMDXFile(path.join(dir, file));
+
+      if (!fileData) {
+        console.error("Failed to read file:", file);
+        continue; // Skip this file instead of throwing
+      }
+
+      const { metadata, content } = fileData;
       const slug = path.basename(file, path.extname(file));
-      console.log("Generated slug:", slug, "from file:", file);
       
+      if (!content || typeof content !== 'string') {
+        console.error("Invalid content for file:", file);
+        console.error("Content type:", typeof content);
+        continue;
+      }
+
       const result = {
         metadata,
         slug,
@@ -82,7 +108,6 @@ function getMDXData(dir: string) {
       };
       
       results.push(result);
-      console.log("Successfully processed file:", file);
     } catch (error) {
       console.error("Error processing file:", file);
       console.error("Error details:", error);
@@ -90,14 +115,27 @@ function getMDXData(dir: string) {
     }
   }
   
-  console.log("getMDXData completed successfully, processed", results.length, "files");
   return results;
 }
 
 export function getPosts(customPath: string[] = []) {
-  const postsDir = path.join(process.cwd(), ...customPath);
-  console.log("Resolved posts directory:", postsDir);
-  console.log("Current working directory:", process.cwd());
-  
-  return getMDXData(postsDir);
+  try {
+    const postsDir = path.join(process.cwd(), ...customPath);
+    
+    const posts = getMDXData(postsDir);
+    
+    // Final validation
+    const validPosts = posts.filter(post => {
+      if (!post.content || typeof post.content !== 'string') {
+        console.error("Filtering out invalid post:", post.slug);
+        return false;
+      }
+      return true;
+    });
+    
+    return validPosts;
+  } catch (error) {
+    console.error("Error in getPosts:", error);
+    return [];
+  }
 }
