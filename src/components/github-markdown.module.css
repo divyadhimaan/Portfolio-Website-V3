@@ -1,0 +1,87 @@
+.github-markdown {
+  font-family: var(--font-family-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text-default);
+  word-wrap: break-word;
+}
+
+/* Headings */
+.github-markdown h1,
+.github-markdown h2,
+.github-markdown h3,
+.github-markdown h4,
+.github-markdown h5,
+.github-markdown h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.github-markdown h1,
+.github-markdown h2 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+/* Paragraphs */
+.github-markdown p {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+/* Blockquotes */
+.blockquote {
+  margin: 0 0 16px 0;
+  padding: 0 1em;
+  color: var(--color-text-muted);
+  border-left: 0.25em solid var(--color-border-muted);
+}
+
+/* Tables */
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.github-markdown table {
+  /* border: 0.5px solid black; */
+  border-collapse: collapse;
+}
+
+.github-markdown th,
+.github-markdown td {
+  padding: 6px 13px;
+  border: 1px solid var(--color-border-default, grey) !important;
+}
+
+.github-markdown thead th {
+  background-color: var(--color-surface-subtle);
+  font-weight: 600;
+}
+/* Zebra striping for alternate rows
+.github-markdown tbody tr:nth-child(2n) {
+  background-color: var(--color-surface-subtle, #f6f8fa);
+} */
+
+/* Lists */
+.github-markdown ul,
+.github-markdown ol {
+  margin-top: 0;
+  margin-bottom: 16px;
+  padding-left: 2em;
+}
+
+.github-markdown li + li {
+  margin-top: 0.25em;
+}
+
+/* Horizontal rules */
+.github-markdown hr {
+  height: 0.25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: var(--color-border-default);
+  border: 0;
+}

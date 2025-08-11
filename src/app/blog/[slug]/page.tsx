@@ -6,7 +6,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { formatDate } from "@/app/utils/formatDate";
 import { getPosts } from "@/app/utils/utils";
 import { Metadata } from 'next';
-
+import { ReactGitHubMarkdownRenderer } from "@/components/ReactGitHubMarkdownRenderer";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "resources", "blogs"]);
@@ -85,7 +85,8 @@ export default async function Blog({
             </Text>
           </Row>
           <Column as="article" fillWidth >
-            <CustomMDX source={await serialize(post.content)} />
+            {/* <CustomMDX source={await serialize(post.content)} /> */}
+            <ReactGitHubMarkdownRenderer content={post.content} />
           </Column>
           <ScrollToHash />
         </Column>

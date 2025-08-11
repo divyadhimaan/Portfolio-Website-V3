@@ -157,6 +157,35 @@ function createImage({ alt, src, ...props }: MediaProps & { src: string }) {
   );
 }
 
+function createTaskListItem({ children, checked }: {children: ReactNode, checked?: boolean}) {
+  return (
+    <li style={{ 
+      marginBottom: "4px", 
+      listStyle: "none", 
+      marginLeft: "-1.5em",
+      display: "flex",
+      alignItems: "flex-start",
+      gap: "8px"
+    }}>
+      <input 
+        type="checkbox" 
+        checked={checked} 
+        readOnly 
+        style={{ 
+          marginTop: "2px",
+          accentColor: "#0969da"
+        }} 
+      />
+      <Text as="span" onBackground="neutral-medium" style={{
+        textDecoration: checked ? "line-through" : "none",
+        opacity: checked ? 0.7 : 1
+      }}>
+        {children}
+      </Text>
+    </li>
+  );
+}
+
 function createInlineCode({ children }: { children: ReactNode }) {
   return (
     <InlineCode
@@ -201,6 +230,295 @@ function createCodeBlock(props: any) {
   );
 }
 
+// Table Components - Enhanced for better GitHub-style rendering
+function createTable({ children }: {children: ReactNode}) {
+  return (
+    <div style={{ 
+      margin: "16px 0", 
+      overflowX: "auto",
+      border: "1px solid #d0d7de",
+      borderRadius: "6px",
+      fontSize: "14px"
+    }}>
+      <table style={{
+        width: "100%",
+        borderCollapse: "collapse",
+        borderSpacing: 0,
+        display: "table",
+        marginTop: 0,
+        marginBottom: 0
+      }}>
+        {children}
+      </table>
+    </div>
+  );
+}
+
+function createThead({ children }: {children: ReactNode}) {
+  return (
+    <thead style={{ 
+      backgroundColor: "#f6f8fa",
+      display: "table-header-group"
+    }}>
+      {children}
+    </thead>
+  );
+}
+
+function createTbody({ children }: {children: ReactNode}) {
+  return (
+    <tbody style={{ display: "table-row-group" }}>
+      {children}
+    </tbody>
+  );
+}
+
+function createTr({ children }: {children: ReactNode}) {
+  return (
+    <tr style={{ 
+      borderTop: "1px solid #d0d7de",
+      backgroundColor: "#ffffff",
+      display: "table-row"
+    }}>
+      {children}
+    </tr>
+  );
+}
+
+function createTh({ children }: {children: ReactNode}) {
+  return (
+    <th style={{
+      padding: "6px 13px",
+      border: "1px solid #d0d7de",
+      textAlign: "left",
+      fontWeight: 600,
+      backgroundColor: "#f6f8fa",
+      display: "table-cell",
+      verticalAlign: "middle"
+    }}>
+      <Text as="span" style={{ fontWeight: 600, fontSize: "14px" }}>
+        {children}
+      </Text>
+    </th>
+  );
+}
+
+function createTd({ children }: {children: ReactNode}) {
+  return (
+    <td style={{
+      padding: "6px 13px",
+      border: "1px solid #d0d7de",
+      display: "table-cell",
+      verticalAlign: "top"
+    }}>
+      <Text as="span" style={{ fontSize: "14px" }}>
+        {children}
+      </Text>
+    </td>
+  );
+}
+
+// Custom MarkdownTable component for handling table markdown syntax
+function MarkdownTable({ children }: { children: string }) {
+  const lines = children.trim().split('\n');
+  
+  if (lines.length < 2) return <pre>{children}</pre>;
+  
+  const headerLine = lines[0];
+  const separatorLine = lines[1];
+  const dataLines = lines.slice(2);
+  
+  // Check if it's a valid table (separator line should have dashes and pipes)
+  if (!separatorLine.includes('|') || !separatorLine.includes('-')) {
+    return <pre>{children}</pre>;
+  }
+  
+  // Parse headers
+  const headers = headerLine
+    .split('|')
+    .map(h => h.trim())
+    .filter(h => h.length > 0);
+    
+  // Parse alignment from separator
+  const alignments = separatorLine
+    .split('|')
+    .map(s => s.trim())
+    .filter(s => s.length > 0)
+    .map(s => {
+      if (s.startsWith(':') && s.endsWith(':')) return 'center';
+      if (s.endsWith(':')) return 'right';
+      return 'left';
+    });
+  
+  // Parse data rows
+  const rows = dataLines.map(line => 
+    line
+      .split('|')
+      .map(cell => cell.trim())
+      .filter((cell, index, arr) => {
+        // Remove empty first/last cells if they exist due to leading/trailing |
+        if (index === 0 && cell === '') return false;
+        if (index === arr.length - 1 && cell === '') return false;
+        return true;
+      })
+  ).filter(row => row.length > 0);
+  
+  return (
+    <div style={{ 
+      margin: "16px 0", 
+      overflowX: "auto",
+      border: "1px solid #d0d7de",
+      borderRadius: "6px",
+      fontSize: "14px"
+    }}>
+      <table style={{
+        width: "100%",
+        borderCollapse: "collapse",
+        borderSpacing: 0
+      }}>
+        <thead style={{ backgroundColor: "#f6f8fa" }}>
+          <tr>
+            {headers.map((header, index) => (
+              <th
+                key={index}
+                style={{
+                  padding: "6px 13px",
+                  border: "1px solid #d0d7de",
+                  textAlign: alignments[index] as any || 'left',
+                  fontWeight: 600,
+                  backgroundColor: "#f6f8fa"
+                }}
+              >
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, rowIndex) => (
+            <tr key={rowIndex} style={{ borderTop: "1px solid #d0d7de" }}>
+              {row.map((cell, cellIndex) => (
+                <td
+                  key={cellIndex}
+                  style={{
+                    padding: "6px 13px",
+                    border: "1px solid #d0d7de",
+                    textAlign: alignments[cellIndex] as any || 'left'
+                  }}
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// Horizontal Rule
+function createHr() {
+  return (
+    <hr style={{
+      height: "0.25em",
+      padding: 0,
+      margin: "24px 0",
+      backgroundColor: "#d0d7de",
+      border: 0
+    }} />
+  );
+}
+
+// Strong/Bold text
+function createStrong({ children }: {children: ReactNode}) {
+  return (
+    <strong style={{ fontWeight: 600 }}>
+      {children}
+    </strong>
+  );
+}
+
+// Emphasis/Italic text
+function createEm({ children }: {children: ReactNode}) {
+  return (
+    <em style={{ fontStyle: "italic" }}>
+      {children}
+    </em>
+  );
+}
+
+// Strikethrough text
+function createDel({ children }: {children: ReactNode}) {
+  return (
+    <del style={{ 
+      textDecoration: "line-through",
+      opacity: 0.7 
+    }}>
+      {children}
+    </del>
+  );
+}
+// Details/Summary (Collapsible sections)
+function createDetails({ children, open }: {children: ReactNode, open?: boolean}) {
+  return (
+    <details 
+      open={open}
+      style={{
+        margin: "16px 0",
+        border: "1px solid #d0d7de",
+        borderRadius: "6px",
+        padding: "16px"
+      }}
+    >
+      {children}
+    </details>
+  );
+}
+
+function createSummary({ children }: {children: ReactNode}) {
+  return (
+    <summary style={{
+      fontWeight: 600,
+      cursor: "pointer",
+      marginBottom: "8px",
+      outline: "none"
+    }}>
+      {children}
+    </summary>
+  );
+}
+
+// Badge/Label component for GitHub-style badges
+function createBadge({ children, variant = "default" }: {
+  children: ReactNode, 
+  variant?: "default" | "success" | "warning" | "error" | "info"
+}) {
+  const variants = {
+    default: { backgroundColor: "#f6f8fa", color: "#24292f", border: "1px solid #d0d7de" },
+    success: { backgroundColor: "#dcffe4", color: "#0969da", border: "1px solid #1a7f37" },
+    warning: { backgroundColor: "#fff8c5", color: "#9a6700", border: "1px solid #d1242f" },
+    error: { backgroundColor: "#ffebe9", color: "#cf222e", border: "1px solid #d1242f" },
+    info: { backgroundColor: "#ddf4ff", color: "#0969da", border: "1px solid #0969da" }
+  };
+
+  return (
+    <span style={{
+      display: "inline-block",
+      padding: "2px 6px",
+      fontSize: "12px",
+      fontWeight: 500,
+      lineHeight: "1.5",
+      borderRadius: "12px",
+      whiteSpace: "nowrap",
+      ...variants[variant]
+    }}>
+      {children}
+    </span>
+  );
+}
+
+
 // --- Compose all the above into the MDX components mapping ---
 
 const components = {
@@ -219,6 +537,26 @@ const components = {
   a: CustomLink as any,
   code: createInlineCode as any,
   pre: createCodeBlock as any,
+  table: createTable as any,
+  thead: createThead as any,
+  tbody: createTbody as any,
+  tr: createTr as any,
+  th: createTh as any,
+  td: createTd as any,
+  hr: createHr as any,
+  strong: createStrong as any,
+  em: createEm as any,
+  del: createDel as any,
+  details: createDetails as any,
+  summary: createSummary as any,
+
+  // Custom components
+  TaskListItem: createTaskListItem as any,
+  Badge: createBadge as any,
+  MarkdownTable: MarkdownTable as any,
+
+
+  // Original Once UI components
   Heading,
   Text,
   InlineCode,
