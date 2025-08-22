@@ -14,10 +14,11 @@ import {
   HeadingLink,
   Text,
   InlineCode,
-  CodeBlock,
   SmartLink,
   Media,
 } from "@once-ui-system/core";
+
+import CodeBlock from "./CodeBlock"
 
 // GitHub style layout, theme-colored
 import styles from "./github-markdown.module.css";
@@ -45,7 +46,7 @@ export function ReactGitHubMarkdownRenderer({ content, className = "" }: GitHubM
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkBreaks]}
         rehypePlugins={[
-          rehypeHighlight,
+          // rehypeHighlight,
           rehypeSlug,
           [rehypeAutolinkHeadings, { behavior: "wrap" }],
         ]}
@@ -113,19 +114,22 @@ export function ReactGitHubMarkdownRenderer({ content, className = "" }: GitHubM
           code: ({ inline, className, node, children, ...props }: any) => {
             if (inline || node?.tagName !== 'code' || node?.parent?.tagName !== 'pre') {
               return (
-                <code className={`${styles.inlineCodeQuote} ${className || ""}`} {...props}>
+                <InlineCode className={className || ""} {...props}>
                   {children}
-                </code>
+                </InlineCode>
               );
             }
-            const match = /language-(\w+)/.exec(props.className || "");
+            const match = /language-(\w+)/.exec(className || "");
+            const language = match?.[1] || "plaintext";
+            const code = String(children).replace(/\n$/, "");
+
             return (
               <CodeBlock
                 codes={[
                   {
-                    code: String(children).replace(/\n$/, ""),
-                    language: match?.[1] || "plaintext",
-                    label: match?.[1] || "code",
+                    code: code,
+                    language: language,
+                    label: language.charAt(0).toUpperCase() + language.slice(1),
                   },
                 ]}
                 copyButton
