@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { Fade, Row, Line, ToggleButton } from "@once-ui-system/core";
+import { Fade, Flex, Row, Line, ToggleButton } from "@once-ui-system/core";
 import { routes, display, person, about, projects, blog, gallery } from "@/resources";
 
 import { ThemeToggle } from "./ThemeToggle";
@@ -16,10 +16,19 @@ export const Header = () => {
   return (
     <>
       <Fade s={{ hide: true }} fillWidth position="fixed" height="80" zIndex={9} />
-      <Fade s={{ hide: true }} fillWidth position="fixed" bottom="0" to="top" height="80" zIndex={9} />
+      <Fade
+        hide
+        s={{ hide: false }}
+        fillWidth
+        position="fixed"
+        bottom="0"
+        to="top"
+        height="80"
+        zIndex={9}
+      />
       <Row
         fitHeight
-        position="unset"
+        position="sticky"
         className={styles.position}
         as="header"
         zIndex={9}
@@ -27,8 +36,11 @@ export const Header = () => {
         padding="8"
         horizontal="center"
         data-border="rounded"
+        s={{
+          position: "fixed",
+        }}
       >
-        <Row paddingLeft="24" fillWidth vertical="center" textVariant="body-default-s">
+        <Row paddingLeft="12" fillWidth vertical="center" textVariant="body-default-s">
           {display.location && <Row s={{ hide: true }} >{person.location}</Row>}
         </Row>
         <Row fillWidth fillHeight horizontal="center">
@@ -48,70 +60,79 @@ export const Header = () => {
               <Line background="neutral-alpha-medium" vert maxHeight="24" />
               {routes["/about"] && (
                 <>
-                  <ToggleButton
-                    className="s-flex-hide"
-                    prefixIcon="person"
-                    href="/about"
-                    label={about.label}
-                    selected={pathname === "/about"}
-                  />
-                  <ToggleButton
-                    className="s-flex-show"
-                    prefixIcon="person"
-                    href="/about"
-                    selected={pathname === "/about"}
-                  />
+                <Row s={{ hide: true }}>
+                    <ToggleButton
+                      prefixIcon="person"
+                      href="/about"
+                      label={about.label}
+                      selected={pathname === "/about"}
+                    />
+                  </Row>
+                  <Row hide s={{ hide: false }}>
+                    <ToggleButton
+                      prefixIcon="person"
+                      href="/about"
+                      selected={pathname === "/about"}
+                    />
+                  </Row>
+                  
                 </>
               )}
               {routes["/projects"] && (
                 <>
-                  <ToggleButton
-                    className="s-flex-hide"
-                    prefixIcon="projects"
-                    href="/projects"
-                    label={projects.label}
-                    selected={pathname === "/projects"}
-                  />
-                  <ToggleButton
-                    className="s-flex-show"
-                    prefixIcon="projects"
-                    href="/projects"
-                    selected={pathname === "/projects"}
-                  />
+                  <Row s={{ hide: true }}>
+                    <ToggleButton
+                      prefixIcon="projects"
+                      href="/projects"
+                      label={projects.label}
+                      selected={pathname === "/projects"}
+                    />
+                  </Row>
+                  <Row hide s={{ hide: false }}>
+                    <ToggleButton
+                      prefixIcon="projects"
+                      href="/projects"
+                      selected={pathname === "/projects"}
+                    />
+                  </Row>
                 </>
               )}
               {routes["/blog"] && (
                 <>
-                  <ToggleButton
-                    className="s-flex-hide"
-                    prefixIcon="blog"
-                    href="/blog"
-                    label={blog.label}
-                    selected={pathname === "/blog"}
-                  />
-                  <ToggleButton
-                    className="s-flex-show"
-                    prefixIcon="blog"
-                    href="/blog"
-                    selected={pathname === "/blog"}
-                  />
+                  <Row s={{ hide: true }}>
+                    <ToggleButton
+                      prefixIcon="blog"
+                      href="/blog"
+                      label={blog.label}
+                      selected={pathname === "/blog"}
+                    />
+                  </Row>
+                  <Row hide s={{ hide: false }}>
+                    <ToggleButton
+                      prefixIcon="blog"
+                      href="/blog"
+                      selected={pathname === "/blog"}
+                    />
+                  </Row>
                 </>
               )}
               {routes["/gallery"] && (
                 <>
-                  <ToggleButton
-                    className="s-flex-hide"
-                    prefixIcon="gallery"
-                    href="/gallery"
-                    label={gallery.label}
-                    selected={pathname.startsWith("/gallery")}
-                  />
-                  <ToggleButton
-                    className="s-flex-show"
-                    prefixIcon="gallery"
-                    href="/gallery"
-                    selected={pathname.startsWith("/gallery")}
-                  />
+                  <Row s={{ hide: true }}>
+                    <ToggleButton
+                      prefixIcon="gallery"
+                      href="/gallery"
+                      label={gallery.label}
+                      selected={pathname.startsWith("/gallery")}
+                    />
+                  </Row>
+                  <Row hide s={{ hide: false }}>
+                    <ToggleButton
+                      prefixIcon="gallery"
+                      href="/gallery"
+                      selected={pathname.startsWith("/gallery")}
+                    />
+                  </Row>
                 </>
               )}
               {display.themeSwitcher && (
@@ -124,8 +145,8 @@ export const Header = () => {
           </Row>
         </Row>
 
-        <Row fillWidth horizontal="end" vertical="center">
-          <Row
+        <Flex fillWidth horizontal="end" vertical="center">
+          <Flex
             paddingRight="12"
             horizontal="end"
             vertical="center"
@@ -134,8 +155,8 @@ export const Header = () => {
             className="s-flex-hide"
           >
             <a href="https://www.linkedin.com/in/divya-dhiman/" target="_blank" rel="noopener noreferrer">LinkedIn</a>/<a href="https://github.com/divyadhimaan" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </Row>
-        </Row>
+          </Flex>
+        </Flex>
 
       </Row>
     </>

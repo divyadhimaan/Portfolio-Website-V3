@@ -1,8 +1,9 @@
-import { Row, Meta, Schema } from "@once-ui-system/core";
+import { Column, Row, Meta, Schema, Text } from "@once-ui-system/core";
 import MasonryGrid from "@/components/gallery/MasonryGrid";
 import { baseURL, gallery, person } from "@/resources";
 import imagesData from "@/resources/data/gallery.json";
 import { GalleryImage } from "@/components/types/GalleryImage";
+import styles from "@/components/gallery/Gallery.module.scss";
 
 
 export async function generateMetadata() {
@@ -18,7 +19,7 @@ export async function generateMetadata() {
 export default function Gallery() {
   const images = imagesData as GalleryImage[];
   return (
-    <Row maxWidth="l">
+    <Column maxWidth="l" gap="32">
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -32,7 +33,17 @@ export default function Gallery() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
+      <Row>
+      <Text
+          className={styles.textAlign}
+          variant="display-default-xs"
+          onBackground="neutral-weak"
+        >
+          Frames of My World
+        </Text>
+      </Row>
+        
       <MasonryGrid images={images}/>
-    </Row>
+    </Column>
   );
 }

@@ -1,3 +1,6 @@
+@use "../breakpoints.scss" as breakpoints;
+
+
 .masonryGrid {
     display: flex;
     margin-left: calc(-1 * var(--static-space-16));
@@ -11,4 +14,12 @@
 
 .gridItem {
     margin-bottom: var(--static-space-16);
+}
+
+@media (max-width: breakpoints.$s) {
+
+
+    .textAlign {
+        text-align: center;
+    }
 }
