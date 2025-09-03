@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { Fade, Flex, Line, ToggleButton } from "@once-ui-system/core";
+import { Fade, Row, Line, ToggleButton } from "@once-ui-system/core";
 import { routes, display, person, about, projects, blog, gallery } from "@/resources";
 
 import { ThemeToggle } from "./ThemeToggle";
@@ -17,7 +17,7 @@ export const Header = () => {
     <>
       <Fade s={{ hide: true }} fillWidth position="fixed" height="80" zIndex={9} />
       <Fade s={{ hide: true }} fillWidth position="fixed" bottom="0" to="top" height="80" zIndex={9} />
-      <Flex
+      <Row
         fitHeight
         position="unset"
         className={styles.position}
@@ -28,11 +28,11 @@ export const Header = () => {
         horizontal="center"
         data-border="rounded"
       >
-        <Flex paddingLeft="24" fillWidth vertical="center" textVariant="body-default-s">
-          {display.location && <Flex s={{ hide: true }} >{person.location}</Flex>}
-        </Flex>
-        <Flex fillWidth fillHeight horizontal="center">
-          <Flex
+        <Row paddingLeft="24" fillWidth vertical="center" textVariant="body-default-s">
+          {display.location && <Row s={{ hide: true }} >{person.location}</Row>}
+        </Row>
+        <Row fillWidth fillHeight horizontal="center">
+          <Row
             background="page"
             border="neutral-alpha-weak"
             radius="m-4"
@@ -41,7 +41,7 @@ export const Header = () => {
             horizontal="center"
             zIndex={1}
           >
-            <Flex gap="4" vertical="center" textVariant="body-default-s" suppressHydrationWarning>
+            <Row gap="4" vertical="center" textVariant="body-default-s" suppressHydrationWarning>
               {routes["/"] && (
                 <ToggleButton prefixIcon="home" href="/" selected={pathname === "/"} />
               )}
@@ -120,12 +120,12 @@ export const Header = () => {
                   <ThemeToggle />
                 </>
               )}
-            </Flex>
-          </Flex>
-        </Flex>
+            </Row>
+          </Row>
+        </Row>
 
-        <Flex fillWidth horizontal="end" vertical="center">
-          <Flex
+        <Row fillWidth horizontal="end" vertical="center">
+          <Row
             paddingRight="12"
             horizontal="end"
             vertical="center"
@@ -134,10 +134,10 @@ export const Header = () => {
             className="s-flex-hide"
           >
             <a href="https://www.linkedin.com/in/divya-dhiman/" target="_blank" rel="noopener noreferrer">LinkedIn</a>/<a href="https://github.com/divyadhimaan" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </Flex>
-        </Flex>
+          </Row>
+        </Row>
 
-      </Flex>
+      </Row>
     </>
   );
 };

@@ -5,11 +5,10 @@ import {
   Button,
   Column,
   Badge,
-  Flex,
+  Row,
   Schema,
   RevealFx,
   Avatar,
-  Row,
   Line
 } from "@once-ui-system/core";
 import { Projects } from "@/components/projects/Projects";
@@ -36,7 +35,7 @@ export default function Home() {
         }}
       />
       <Column fillWidth paddingY="24" gap="m">
-        <Column maxWidth="s">
+        <Column maxWidth="s" >
           {home.featured.display && (
           <RevealFx fillWidth horizontal="start" paddingTop="16" paddingBottom="32" paddingLeft="12">
             <Badge background="brand-alpha-weak" paddingX="12" paddingY="4" onBackground="neutral-strong" textVariant="label-default-s" arrow={false}
@@ -65,7 +64,7 @@ export default function Home() {
               weight="default"
               arrowIcon
             >
-              <Flex gap="8" vertical="center" paddingRight="4">
+              <Row gap="8" vertical="center" paddingRight="4">
                 {about.avatar.display && (
                   <Avatar
                     marginRight="8"
@@ -75,7 +74,7 @@ export default function Home() {
                   />
                 )}
                 {about.title}
-              </Flex>
+              </Row>
             </Button>
 
           </RevealFx>

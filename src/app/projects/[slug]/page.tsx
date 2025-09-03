@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getPosts } from "@/app/utils/utils";
-import { Meta, Schema, AvatarGroup, Button, Column, Flex, Heading, Media, Text } from "@once-ui-system/core";
+import { Meta, Schema, AvatarGroup, Button, Column, Row, Heading, Media, Text } from "@once-ui-system/core";
 import { baseURL, about, person, projects } from "@/resources";
 import { formatDate } from "@/app/utils/formatDate";
 import { ScrollToHash, CustomMDX } from "@/components";
@@ -99,12 +99,12 @@ export default async function Project({ params }: PageParams) {
         />
       )}
       <Column style={{ margin: "auto" }} as="article" maxWidth="xs">
-        <Flex gap="12" marginBottom="24" vertical="center">
+        <Row gap="12" marginBottom="24" vertical="center">
           {post.metadata.team && <AvatarGroup reverse avatars={avatars} size="m" />}
           <Text variant="body-default-s" onBackground="neutral-weak">
             {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
           </Text>
-        </Flex>
+        </Row>
         <div>
           <CustomMDX source={await serialize(post.content)} />
         </div>

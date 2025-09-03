@@ -4,12 +4,11 @@ import {
   AvatarGroup,
   Carousel,
   Column,
-  Flex,
+  Row,
   Heading,
   SmartLink,
   Text,
   Badge,
-  Row,
 } from "@once-ui-system/core";
 
 interface ProjectCardProps {
@@ -46,8 +45,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           alt: title,
         }))}
       />
-      <Flex
-        mobileDirection="column"
+      <Row
+        s={{ direction: "column" }}
         fillWidth
         paddingX="s"
         paddingTop="12"
@@ -55,11 +54,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         gap="l"
       >
           {title && (
-            <Flex flex={5} direction="column"  gap="12">
+            <Row flex={5} direction="column"  gap="12">
               <Heading as="h2" wrap="balance" variant="heading-strong-xl">
                 {title}
               </Heading>
-              <Flex gap="8" wrap>
+              <Row gap="8" wrap>
               {languages?.length > 0 && ( 
                   languages.map((lang, index) => (
                   <Badge key={index} background="brand-alpha-weak" paddingX="12" paddingY="4" onBackground="neutral-strong" textVariant="label-default-s" arrow={false}>
@@ -67,8 +66,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   </Badge>
                 ))
               )}
-              </Flex>
-            </Flex>
+              </Row>
+            </Row>
           )}
         {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
           <Column flex={7} gap="16">
@@ -78,7 +77,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 {description}
               </Text>
             )}
-            <Flex gap="24" wrap>
+            <Row gap="24" wrap>
               {/* {content?.trim() && (
                 <SmartLink
                   suffixIcon="arrowRight"
@@ -106,13 +105,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   <Text variant="body-default-s">Source Code</Text>
                 </SmartLink>
               )}
-            </Flex>
+            </Row>
             
             
             
           </Column>
         )}
-      </Flex>
+      </Row>
     </Column>
   );
 };

@@ -1,4 +1,4 @@
-import { Flex, Meta, Schema } from "@once-ui-system/core";
+import { Row, Meta, Schema } from "@once-ui-system/core";
 import MasonryGrid from "@/components/gallery/MasonryGrid";
 import { baseURL, gallery, person } from "@/resources";
 import imagesData from "@/resources/data/gallery.json";
@@ -18,7 +18,7 @@ export async function generateMetadata() {
 export default function Gallery() {
   const images = imagesData as GalleryImage[];
   return (
-    <Flex maxWidth="l">
+    <Row maxWidth="l">
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -33,6 +33,6 @@ export default function Gallery() {
         }}
       />
       <MasonryGrid images={images}/>
-    </Flex>
+    </Row>
   );
 }

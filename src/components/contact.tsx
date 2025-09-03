@@ -1,7 +1,7 @@
 // "use client";
 
 // import { contact } from "@/resources";
-// import { Button, Flex, Heading, Input, Text, Background, Column } from "@once-ui-system/core";
+// import { Button, Row, Heading, Input, Text, Background, Column } from "@once-ui-system/core";
 // import { opacity, SpacingToken } from "@once-ui-system/core";
 // import { useState } from "react";
 
@@ -132,7 +132,7 @@
 //         id="mc-embedded-subscribe-form"
 //         name="mc-embedded-subscribe-form"
 //       >
-//         <Flex id="mc_embed_signup_scroll" fillWidth maxWidth={24} mobileDirection="column" gap="8">
+//         <Row id="mc_embed_signup_scroll" fillWidth maxWidth={24} s={{ direction: "column" }}> gap="8">
 //           <Input
 //             formNoValidate
 //             id="mce-EMAIL"
@@ -174,13 +174,13 @@
 //             />
 //           </div>
 //           <div className="clear">
-//             <Flex height="48" vertical="center">
+//             <Row height="48" vertical="center">
 //               <Button id="mc-embedded-subscribe" value="Subscribe" size="m" fillWidth>
 //                 Subscribe
 //               </Button>
-//             </Flex>
+//             </Row>
 //           </div>
-//         </Flex>
+//         </Row>
 //       </form>
 //     </Column>
 //   );
