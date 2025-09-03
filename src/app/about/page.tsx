@@ -2,7 +2,7 @@ import {
     Avatar,
     Button,
     Column,
-    Flex,
+    Row,
     Heading,
     Icon,
     IconButton,
@@ -16,7 +16,6 @@ import {
   import TableOfContents from "@/components/about/TableOfContents";
   import styles from "@/components/about/about.module.scss";
   import React from "react";
-import Link from "next/link";
   
   export async function generateMetadata() {
     return Meta.generate({
@@ -73,12 +72,12 @@ import Link from "next/link";
             position="fixed"
             paddingLeft="24"
             gap="32"
-            hide="s"
+            s={{ hide: true }}
           >
             <TableOfContents structure={structure} about={about} />
           </Column>
         )}
-        <Flex fillWidth mobileDirection="column" horizontal="center">
+        <Row fillWidth s={{ direction: "column" }} horizontal="center">
           {about.avatar.display && (
             <Column
               className={styles.avatar}
@@ -91,18 +90,18 @@ import Link from "next/link";
               horizontal="center"
             >
               <Avatar src={person.avatar} size="xl" />
-              <Flex gap="8" vertical="center">
+              <Row gap="8" vertical="center">
                 <Icon onBackground="accent-weak" name="globe" />
                 {person.location}
-              </Flex>
+              </Row>
               {person.languages.length > 0 && (
-                <Flex wrap gap="8">
+                <Row wrap gap="8">
                   {person.languages.map((language, index) => (
                     <Tag key={language} size="l">
                       {language}
                     </Tag>
                   ))}
-                </Flex>
+                </Row>
               )}
             </Column>
           )}
@@ -115,7 +114,7 @@ import Link from "next/link";
               marginBottom="32"
             >
               {/* {about.calendar.display && (
-                <Flex
+                <Row
                   fitWidth
                   border="brand-alpha-medium"
                   className={styles.blockAlign}
@@ -130,14 +129,14 @@ import Link from "next/link";
                   vertical="center"
                 >
                   <Icon paddingLeft="12" name="calendar" onBackground="brand-weak" />
-                  <Flex paddingX="8">Schedule a call</Flex>
+                  <Row paddingX="8">Schedule a call</Row>
                   <IconButton
                     href={about.calendar.link}
                     data-border="rounded"
                     variant="secondary"
                     icon="chevronRight"
                   />
-                </Flex>
+                </Row>
               )} */}
               <Heading className={styles.textAlign} variant="display-strong-xl">
                 {person.name}
@@ -150,7 +149,7 @@ import Link from "next/link";
                 {person.role}
               </Text>
               {social.length > 0 && (
-                <Flex className={styles.blockAlign} paddingTop="20" paddingBottom="8" gap="8" wrap horizontal="center" fitWidth data-border="rounded">
+                <Row className={styles.blockAlign} paddingTop="20" paddingBottom="8" gap="8" wrap horizontal="center" fitWidth data-border="rounded">
                   {social.map(
                     (item) =>
                       item.link && (
@@ -176,7 +175,7 @@ import Link from "next/link";
                           </React.Fragment>
                       ),
                   )}
-                </Flex>
+                </Row>
               )}
             </Column>
   
@@ -194,14 +193,14 @@ import Link from "next/link";
                 <Column fillWidth gap="l" marginBottom="40">
                   {about.work.experiences.map((experience, index) => (
                     <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
-                      <Flex fillWidth horizontal="space-between" vertical="end" marginBottom="4">
+                      <Row fillWidth horizontal="between" vertical="end" marginBottom="4">
                         <Text id={experience.company} variant="heading-strong-l">
                           <a href={experience.link} target="_blank" rel="noopener noreferrer">{experience.company}</a>
                         </Text>
                         <Text variant="heading-default-xs" onBackground="neutral-weak">
                           {experience.timeframe}
                         </Text>
-                      </Flex>
+                      </Row>
                       <Text variant="body-default-s" onBackground="brand-weak" marginBottom="m">
                         {experience.role}
                       </Text>
@@ -217,9 +216,9 @@ import Link from "next/link";
                         ))}
                       </Column>
                       {/* {experience.images.length > 0 && (
-                        <Flex fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
+                        <Row fillWidth paddingTop="m" paddingLeft="40" gap="12" wrap>
                           {experience.images.map((image, index) => (
-                            <Flex
+                            <Row
                               key={index}
                               border="neutral-medium"
                               radius="m"
@@ -238,9 +237,9 @@ import Link from "next/link";
                                 //@ts-ignore
                                 src={image.src}
                               />
-                            </Flex>
+                            </Row>
                           ))}
-                        </Flex>
+                        </Row>
                       )} */}
                     </Column>
                   ))}
@@ -286,9 +285,9 @@ import Link from "next/link";
                         {skill.description}
                       </Text>
                       {skill.images && skill.images.length > 0 && (
-                        <Flex fillWidth paddingTop="m" gap="12" wrap>
+                        <Row fillWidth paddingTop="m" gap="12" wrap>
                           {skill.images.map((image, index) => (
-                            <Flex
+                            <Row
                               key={index}
                               border="neutral-medium"
                               radius="m"
@@ -307,9 +306,9 @@ import Link from "next/link";
                                 //@ts-ignore
                                 src={image.src}
                               />
-                            </Flex>
+                            </Row>
                           ))}
-                        </Flex>
+                        </Row>
                       )}
                     </Column>
                   ))}
@@ -317,7 +316,7 @@ import Link from "next/link";
               </>
             )}
           </Column>
-        </Flex>
+        </Row>
       </Column>
     );
   }
