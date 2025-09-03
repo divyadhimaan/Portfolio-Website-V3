@@ -51,6 +51,8 @@ export const person = {
     ),
   };
 
+  export const labs = []
+
   export const social = [
     // Links are automatically displayed.
     // Import new icons in /once-ui/icons.ts

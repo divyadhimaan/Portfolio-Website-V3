@@ -15,14 +15,14 @@ export async function generateMetadata() {
 
 export default function Blog() {
   return (
-    <Column maxWidth="s">
+    <Column maxWidth="m" paddingTop="24">
       <Schema
         as="blogPosting"
         baseURL={baseURL}
         title={blog.title}
         description={blog.description}
         path={blog.path}
-        image={`/generate-og?title=${encodeURIComponent(blog.title)}`}
+        image={`/api/og/generate?title=${encodeURIComponent(blog.title)}`}
         author={{
           name: person.name,
           url: `${baseURL}/blog`,
@@ -34,9 +34,13 @@ export default function Blog() {
       </Heading>
       <Column
 				fillWidth flex={1}>
-				<Posts range={[1,4]} thumbnail direction="column"/>
-				{/* <Posts range={[2,4]} thumbnail/> */}
-				{/* <Posts range={[4]} columns="2"/> */}
+        <Posts range={[1, 1]} thumbnail />
+        <Posts range={[2, 3]} columns="2" thumbnail direction="column" />
+        
+				<Heading as="h2" variant="heading-strong-xl" marginLeft="l">
+          Earlier posts
+        </Heading>
+        <Posts range={[4]} columns="2" />
 			</Column>
     </Column>
   );
