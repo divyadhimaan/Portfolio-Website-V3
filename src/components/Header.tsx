@@ -29,7 +29,7 @@ export const Header = () => {
         data-border="rounded"
       >
         <Flex paddingLeft="24" fillWidth vertical="center" textVariant="body-default-s">
-          {display.location && <Flex hide="s">{person.location}</Flex>}
+          {display.location && <Flex s={{ hide: true }} >{person.location}</Flex>}
         </Flex>
         <Flex fillWidth fillHeight horizontal="center">
           <Flex
