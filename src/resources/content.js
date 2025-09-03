@@ -41,12 +41,11 @@ export const person = {
   };
 
   export const contactMe = {
-    display: false,
-    title: <>Tell me about your Idea {person.firstName}'s Newsletter</>,
+    display: true,
+    title: <>Get in Touch</>,
     description: (
       <>
-        I occasionally write about design, technology, and share thoughts on the intersection of
-        creativity and engineering.
+        I’d love to hear from you—whether it’s about opportunities, ideas, or just to say hi.
       </>
     ),
   };
