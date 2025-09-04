@@ -29,8 +29,8 @@ export const person = {
     headline: <>Turning Ideas into Implementation</>,
     featured: {
       display: false,
-      title: <>Recent project: <strong className="ml-4">DSA assistant - Dbot</strong></>,
-      href: "/projects/chat-assisstant-using-llama3",
+      title: <>Exploring: <strong className="ml-4">Multithreading</strong></>,
+      href: "/blogs/concurreny",
     },
     subline: (
       <>
