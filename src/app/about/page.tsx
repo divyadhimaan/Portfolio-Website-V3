@@ -154,8 +154,8 @@ import {
                     (item) =>
                       item.link && (
                           <React.Fragment key={item.name}>
-                              <Button
-                                  className="s-flex-hide"
+                              <Row s={{ hide: true }}>
+                                <Button
                                   key={item.name}
                                   href={item.link}
                                   prefixIcon={item.icon}
@@ -163,15 +163,17 @@ import {
                                   size="s"
                                   weight="default"
                                   variant="secondary"
-                              />
-                              <IconButton
-                                  className="s-flex-show"
+                                />
+                              </Row>
+                              <Row hide s={{ hide: false }}>
+                                <IconButton
                                   size="l"
                                   key={`${item.name}-icon`}
                                   href={item.link}
                                   icon={item.icon}
                                   variant="secondary"
-                              />
+                                />
+                              </Row>
                           </React.Fragment>
                       ),
                   )}
@@ -241,6 +243,15 @@ import {
                           ))}
                         </Row>
                       )} */}
+                      {experience.tags && experience.tags.length > 0 && (
+                      <Row wrap gap="8" paddingTop="8">
+                        {experience.tags.map((tag, tagIndex) => (
+                          <Tag key={`${experience.role}-${tagIndex}`} size="l" prefixIcon={tag.icon}>
+                            {tag.name}
+                          </Tag>
+                        ))}
+                      </Row>
+                    )}
                     </Column>
                   ))}
                 </Column>
@@ -279,7 +290,7 @@ import {
                 </Heading>
                 <Column fillWidth gap="l">
                   {about.technical.skills.map((skill, index) => (
-                    <Column key={`${skill}-${index}`} fillWidth gap="4">
+                    <Column key={`${skill}`} fillWidth gap="4">
                       <Text variant="heading-strong-l">{skill.title}</Text>
                       <Text variant="body-default-m" onBackground="neutral-weak">
                         {skill.description}
@@ -288,22 +299,17 @@ import {
                         <Row fillWidth paddingTop="m" gap="12" wrap>
                           {skill.images.map((image, index) => (
                             <Row
-                              key={index}
+                              key={image.src}
                               border="neutral-medium"
                               radius="m"
-                              //@ts-ignore
                               minWidth={image.width}
-                              //@ts-ignore
                               height={image.height}
                             >
                               <Media
                                 enlarge
                                 radius="m"
-                                //@ts-ignore
                                 sizes={image.width.toString()}
-                                //@ts-ignore
                                 alt={image.alt}
-                                //@ts-ignore
                                 src={image.src}
                               />
                             </Row>

@@ -113,31 +113,39 @@ export const person = {
           role: "Software Developer Engineer",
           link: "https://www.jpmorganchase.com",
           achievements: [
-            <>
-              Engineered an LLM-powered tool using Python and React that translated natural language into SQL,
-allowing business users to define 100+ data quality rules and accelerated data validation processes.
-            </>,
-            <>
-              Implemented a robust version control framework for data ingestion, enabling real-time status updates
-via REST APIs that enhanced consumer access to ACTIVE datasets by 40%, improving overall usability.
-            </>,
-            <>
-            Optimized automated pipelines leveraging AWS Lambda functions and Databricks, processing over 1
-million records daily, and integrated telemetry and event distribution, completely eliminating the need
-for manual intervention.
-            </>,
-            <>
-            Created a ReactJS-based Event and Webinar Management tool, reducing manual effort by 60% and
-improving event discoverability and registration.
-            </>,
-            <>
-            Implemented an automated end-to-end functional test suite using Cucumber with a Java back-end,
-allowing early detection of critical defects and achieving a 97% reduction in production defect rates.
-            </>,
-            <>
-            Led the migration from Jenkins to Spinnaker, establishing a robust CI/CD pipeline to accelerate
-software delivery.
-            </>,
+            "Engineered an LLM-powered tool using Python and React that translated natural language into SQL, allowing business users to define 100+ data quality rules and accelerated data validation processes.",
+            "Implemented a robust version control framework for data ingestion, enabling real-time status updates via REST APIs that enhanced consumer access to ACTIVE datasets by 40%, improving overall usability.",
+            "Optimized automated pipelines leveraging AWS Lambda functions and Databricks, processing over 1 million records daily, and integrated telemetry and event distribution, completely eliminating the need for manual intervention.",
+            "Created a ReactJS-based Event and Webinar Management tool, reducing manual effort by 60% and improving event discoverability and registration.",
+            "Implemented an automated end-to-end functional test suite using Cucumber with a Java back-end, allowing early detection of critical defects and achieving a 97% reduction in production defect rates.",
+            "Led the migration from Jenkins to Spinnaker, establishing a robust CI/CD pipeline to accelerate software delivery.",
+          ],
+          tags: [
+            {
+              name: "JAVA",
+              icon: "java",
+            },
+            {
+              name: "Springboot",
+              icon: "springboot",
+            },
+            {
+              name: "Python",
+              icon: "python",
+            },
+            {
+              name: "Lambdas",
+              icon: "aws",
+            },
+            {
+              name: "Spark",
+              icon: "sparkLang",
+            },
+            {
+              name: "React",
+              icon: "reactjs",
+            },
+            
           ],
           // images: [
           //   // optional: leave the array empty if you don't want to display images
@@ -155,21 +163,35 @@ software delivery.
           role: "SDE Intern",
           link: "https://www.jpmorganchase.com",
           achievements: [
-            <>
-              Executed a Java Spring Boot application deployed on AWS ECS, reducing deployment time by 60%.
-            </>,
-            <>
-              Curated a DataDog monitoring dashboard to track and optimize the health and performance of AWS
-Kubernetes clusters, reducing incident response time by 45%.
-            </>,
-            <>
-              Built an intuitive React-based interface for uploading files to AWS S3 landing zones, triggering automated ingestion pipelines via cloud-native services.            
-            </>,
-            <>
-              Implemented Splunk log filtering to streamline log analysis and enable early and efficient detection of errors and failures.
-            </>
+            "Executed a Java Spring Boot application deployed on AWS ECS, reducing deployment time by 60%.",
+            "Curated a DataDog monitoring dashboard to track and optimize the health and performance of AWS Kubernetes clusters, reducing incident response time by 45%.",
+            "Built an intuitive React-based interface for uploading files to AWS S3 landing zones, triggering automated ingestion pipelines via cloud-native services. ",
+            "Implemented Splunk log filtering to streamline log analysis and enable early and efficient detection of errors and failures."
           ],
           images: [],
+          tags: [
+            {
+              name: "JAVA",
+              icon: "java",
+            },
+            {
+              name: "Springboot",
+              icon: "springboot",
+            },
+            {
+              name: "ECS",
+              icon: "aws",
+            },
+            {
+              name: "Datadog",
+              icon: "datadog",
+            },
+            {
+              name: "React",
+              icon: "reactjs",
+            },
+            
+          ],
         },
       ],
     },

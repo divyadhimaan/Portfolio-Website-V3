@@ -1,4 +1,5 @@
-import { IconType } from "react-icons";
+import type { IconType } from "react-icons";
+
 
 import {
   HiChevronUp,
@@ -40,8 +41,8 @@ import { GrProjects } from "react-icons/gr";
 
 
 import { FaDiscord, FaGithub, FaLinkedin, FaX, FaThreads } from "react-icons/fa6";
-import { FaCodepen } from "react-icons/fa";
-
+import { FaCodepen, FaPython, FaJava, FaReact, FaAws } from "react-icons/fa";
+import { SiSpringboot, SiApachespark, SiDatadog } from "react-icons/si";
 import { MdOutlineNotes } from "react-icons/md";
 
 
@@ -85,6 +86,13 @@ export const iconLibrary: Record<string, IconType> = {
   projects: GrProjects,
   code: FaCodepen,
   blog: MdOutlineNotes,
+  python: FaPython,
+  java: FaJava,
+  springboot: SiSpringboot,
+  sparkLang: SiApachespark,
+  reactjs: FaReact,
+  aws: FaAws,
+  datadog: SiDatadog,
 };
 
 export type IconLibrary = typeof iconLibrary;
