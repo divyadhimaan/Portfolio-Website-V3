@@ -5,67 +5,30 @@ import styles from './Posts.module.scss';
 import { formatDate } from '@/app/utils/formatDate';
 import { person } from "@/resources";
 
-
+interface Post {
+  title?: string;
+  metadata: {
+    title?: string;
+    tag?: string | string[];
+    publishedAt?: string;
+    summary?: string;
+    image?: string;
+  };
+  slug?: string;
+  content?: string;
+}
 interface PostProps {
-    post: any;
+    post: Post;
     thumbnail: boolean;
     direction?: "row" | "column";
 }
+const getTags = (tag: string | string[] | undefined): string[] => {
+  if (!tag) return [];
+  return Array.isArray(tag) ? tag : [tag];
+};
 
 export default function Post({ post, thumbnail, direction }: PostProps) {
     return (
-        // <SmartLink
-        //     fillWidth
-        //     unstyled
-        //     style={{ borderRadius: 'var(--radius-l)' }}
-        //     key={post.slug}
-        //     href={`/blog/${post.slug}`}>
-        //     <Flex
-        //         position="relative"
-        //         transition="micro-medium"
-        //         direction={direction}
-        //         radius="l"
-        //         className={styles.hover}
-        //         mobileDirection="column"
-        //         fillWidth>
-        //         {post.metadata.image && thumbnail && (
-        //             <Media
-        //                 priority
-        //                 className={styles.image}
-        //                 sizes="(max-width: 768px) 100vw, 640px"
-        //                 border="neutral-alpha-weak"
-        //                 cursor="interactive"
-        //                 radius="l"
-        //                 src={post.metadata.image}
-        //                 alt={'Thumbnail of ' + post.metadata.title}
-        //                 aspectRatio="16 / 9"
-        //             />
-        //         )}
-        //         <Column
-        //             position="relative"
-        //             fillWidth gap="4"
-        //             padding="24"
-        //             vertical="center">
-        //             <Heading
-        //                 as="h2"
-        //                 variant="heading-strong-l"
-        //                 wrap="balance">
-        //                 {post.metadata.title}
-        //             </Heading>
-        //             <Text
-        //                 variant="label-default-s"
-        //                 onBackground="neutral-weak">
-        //                 {formatDate(post.metadata.publishedAt, false)}
-        //             </Text>
-        //             { post.metadata.tag &&
-        //                 <Tag
-        //                     className="mt-12"
-        //                     label={post.metadata.tag.join(', ')}
-        //                     variant="neutral" />
-        //             }
-        //         </Column>
-        //     </Flex>
-        // </SmartLink>
         <Card
         fillWidth
         key={post.slug}
@@ -87,7 +50,7 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
             cursor="interactive"
             radius="l"
             src={post.metadata.image}
-            alt={"Thumbnail of " + post.metadata.title}
+            alt={`Thumbnail of ${post.metadata.title}`}
             aspectRatio="16 / 9"
           />
         )}
@@ -99,7 +62,7 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
                 <Text variant="label-default-s">{person.name}</Text>
               </Row>
               <Text variant="body-default-xs" onBackground="neutral-weak">
-                {formatDate(post.metadata.publishedAt, false)}
+              {formatDate(post.metadata.publishedAt || new Date().toISOString(), false)}
               </Text>
             </Row>
             <Text variant="heading-strong-l" wrap="balance">
@@ -107,11 +70,11 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
             </Text>
             {post.metadata.tag && post.metadata.tag.length > 0 && (
                 <Row wrap gap="8" paddingTop="8">
-                {post.metadata.tag.map((tag: string) => (
+                  {getTags(post.metadata.tag).map((tag: string) => (
                     <Tag key={`${post.title}-${tag}`} size="l">
-                    {tag}
+                      {tag}
                     </Tag>
-                ))}
+                  ))}
                 </Row>
             )}
           </Column>

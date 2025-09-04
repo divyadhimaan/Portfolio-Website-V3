@@ -3,9 +3,13 @@
 import Masonry from "react-masonry-css";
 import { Media } from "@once-ui-system/core";
 import styles from "./Gallery.module.scss";
-import { GalleryImage } from "@/components/types/GalleryImage";
+// import { GalleryImage } from "@/components/types/GalleryImage";
 
-
+export type GalleryImage = {
+  src: string;
+  alt: string;
+  orientation: "horizontal" | "vertical";
+};
 type MasonryGridProps = {
   images: GalleryImage[];
 };
@@ -27,7 +31,7 @@ export default function MasonryGrid({ images }: MasonryGridProps) {
         <Media
           priority={index < 10}
           sizes="(max-width: 350px) 100vw, 50vw"
-          key={index}
+          key={`${images.length}-${index}`}
           radius="m"
           aspectRatio={image.orientation === "horizontal" ? "16 / 9" : "3 / 4"}
           src={image.src}

@@ -2,10 +2,13 @@ import { Column, Row, Meta, Schema, Text } from "@once-ui-system/core";
 import MasonryGrid from "@/components/gallery/MasonryGrid";
 import { baseURL, gallery, person } from "@/resources";
 import imagesData from "@/resources/data/gallery.json";
-import { GalleryImage } from "@/components/types/GalleryImage";
 import styles from "@/components/gallery/Gallery.module.scss";
 
-
+export type GalleryImage = {
+  src: string;
+  alt: string;
+  orientation: "horizontal" | "vertical";
+};
 export async function generateMetadata() {
   return Meta.generate({
     title: gallery.title,
