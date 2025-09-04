@@ -59,19 +59,42 @@ const protectedRoutes = {
 };
 
 
-// default customization applied to the HTML in the main layout.tsx
+/* Generate at: https://once-ui.com/customize */
+// const style = {
+//   theme: "dark",
+//   brand: "indigo",
+//   accent: "magenta",
+//   neutral: "gray",
+//   border: "playful",
+//   solid: "color",
+//   solidStyle: "flat",
+//   surface: "translucent",
+//   transition: "all",
+// }
 const style = {
-  theme: "dark", // dark | light - not needed when using ThemeProvider
-  neutral: "gray", // sand | gray | slate
-  brand: "blue", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
-  accent: "indigo", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
-  solid: "contrast", // color | contrast | inverse
-  solidStyle: "flat", // flat | plastic
-  border: "playful", // rounded | playful | conservative
-  surface: "translucent", // filled | translucent
-  transition: "all", // all | micro | macro
-  scaling: "100", // 90 | 95 | 100 | 105 | 110
-};
+  theme: "dark",
+  brand: "indigo",
+  accent: "indigo",
+  neutral: "gray",
+  border: "playful",
+  solid: "contrast",
+  solidStyle: "flat",
+  surface: "filled",
+  transition: "all",
+}
+
+// const style = {
+//   theme: "dark",
+//   brand: "yellow",
+//   accent: "indigo",
+//   neutral: "sand",
+//   border: "rounded",
+//   solid: "contrast",
+//   solidStyle: "flat",
+//   surface: "translucent",
+//   transition: "all",
+// }
+
 
 const dataStyle = {
   variant: "gradient", // flat | gradient | outline
