@@ -1,0 +1,11 @@
+@use "../breakpoints.scss" as breakpoints;
+
+
+
+@media (max-width: breakpoints.$s) {
+
+
+    .textAlign {
+        text-align: center;
+    }
+}
