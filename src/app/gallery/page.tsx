@@ -1,7 +1,6 @@
 import { Column, Row, Meta, Schema, Text } from "@once-ui-system/core";
-import MasonryGrid from "@/components/gallery/MasonryGrid";
+import GalleryView from "@/components/gallery/GalleryView";
 import { baseURL, gallery, person } from "@/resources";
-import imagesData from "@/resources/data/gallery.json";
 import styles from "@/components/gallery/Gallery.module.scss";
 
 export type GalleryImage = {
@@ -20,7 +19,6 @@ export async function generateMetadata() {
 }
 
 export default function Gallery() {
-  const images = imagesData as GalleryImage[];
   return (
     <Column maxWidth="l" gap="32">
       <Schema
@@ -46,7 +44,7 @@ export default function Gallery() {
         </Text>
       </Row>
         
-      <MasonryGrid images={images}/>
+      <GalleryView />
     </Column>
   );
 }
