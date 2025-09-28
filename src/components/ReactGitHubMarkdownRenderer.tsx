@@ -4,6 +4,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
+import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -35,9 +36,10 @@ function slugify(str: string): string {
 interface GitHubMarkdownRendererProps {
   content: string;
   className?: string;
+  maxCodeLines?: number;
 }
 
-export function ReactGitHubMarkdownRenderer({ content, className = "" }: GitHubMarkdownRendererProps) {
+export function ReactGitHubMarkdownRenderer({ content, className = "", maxCodeLines = 20 }: GitHubMarkdownRendererProps) {
   return (
     <div
       className={`${styles["github-markdown"]} ${className}`}
@@ -47,6 +49,7 @@ export function ReactGitHubMarkdownRenderer({ content, className = "" }: GitHubM
         remarkPlugins={[remarkGfm, remarkBreaks]}
         rehypePlugins={[
           // rehypeHighlight,
+          rehypeRaw,
           rehypeSlug,
           [rehypeAutolinkHeadings, { behavior: "wrap" }],
         ]}
@@ -132,7 +135,8 @@ export function ReactGitHubMarkdownRenderer({ content, className = "" }: GitHubM
                     label: language.charAt(0).toUpperCase() + language.slice(1),
                   },
                 ]}
-                copyButton
+                copyButton={true}
+                maxLines={maxCodeLines}
               />
             );
           },
@@ -156,7 +160,18 @@ export function ReactGitHubMarkdownRenderer({ content, className = "" }: GitHubM
           ),
           
 
-          hr: () => <hr />,
+          hr: () => (
+            <hr style={{ borderTop: "1px solid #e1e4e8", width: "100%", }} />
+          ),
+          subHr: () => (
+              <hr style={{
+               borderTop: "1px solid #f3f4f6",
+               width: "100%",
+               margin: "16px 0",
+               border: "none"
+             }} />
+           )
+
         }}
       >
         {content}
