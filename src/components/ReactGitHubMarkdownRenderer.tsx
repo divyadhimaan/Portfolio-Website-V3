@@ -19,6 +19,13 @@ import {
   Media,
 } from "@once-ui-system/core";
 
+interface CodeComponentProps {
+  inline?: boolean;
+  className?: string;
+  node?: Element;
+  children: React.ReactNode;
+}
+
 import CodeBlock from "./CodeBlock"
 
 // GitHub style layout, theme-colored
@@ -163,14 +170,6 @@ export function ReactGitHubMarkdownRenderer({ content, className = "", maxCodeLi
           hr: () => (
             <hr style={{ borderTop: "1px solid #e1e4e8", width: "100%", }} />
           ),
-          subHr: () => (
-              <hr style={{
-               borderTop: "1px solid #f3f4f6",
-               width: "100%",
-               margin: "16px 0",
-               border: "none"
-             }} />
-           )
 
         }}
       >
