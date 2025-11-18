@@ -40,7 +40,7 @@
   padding: 0.2em 0.4em;
   margin: 0;
   font-size: 85%;
-  /* background-color: rgba(175, 184, 193, 0.2); */
+  background-color: rgba(175, 184, 193, 0.2);
   border-radius: 6px;
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 }
@@ -50,17 +50,25 @@
   white-space: normal;
 }
 
-/* Code blocks - Light theme */
-.github-markdown pre {
+/* Code blocks - Light theme EFFECTIVE OVERRIDE */
+.github-markdown pre,
+.github-markdown pre code,
+.github-markdown .hljs {
   padding: 16px;
   margin: 12px 0;
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: #f6f8fa;
+  background: #f6f8fa !important;
   border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  color: inherit;
+  opacity: 1 !important;
+  filter: none !important;
+  backdrop-filter: none !important;
 }
 
+/* Code blocks - additional rules to avoid highlight.js breaking bg */
 .github-markdown pre code {
   display: block;
   padding: 0 !important;
@@ -164,11 +172,19 @@
     background-color: rgba(114, 116, 119, 0.242);
   }
   
-  /* Code blocks - Dark theme */
-  .github-markdown pre {
-    background-color: #4445463f;
+  /* Code blocks - Dark theme and force background override */
+  .github-markdown pre,
+  .github-markdown pre code,
+  .github-markdown .hljs {
+    background: #22272e !important;
+    color: #c9d1d9 !important;
+    border-radius: 6px;
+    border: 1px solid #22272e;
+    opacity: 1 !important;
+    filter: none !important;
+    backdrop-filter: none !important;
   }
-  
+
   /* Scrollbar - Dark theme */
   .github-markdown pre::-webkit-scrollbar {
     background-color: #21262d;
