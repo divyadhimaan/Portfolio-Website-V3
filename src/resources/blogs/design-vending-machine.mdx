@@ -610,7 +610,7 @@ Each state defines allowed operations and restricts invalid actions.
 
 - Change: Made it ThreadLocal<Product>, so each user/thread can select a product independently without collisions.
 
-- ```private ThreadLocal<Product> currentSelection;```
+- `private ThreadLocal<Product> currentSelection;`
 
 ### 2. Per-thread payment tracking
 
@@ -620,7 +620,7 @@ Each state defines allowed operations and restricts invalid actions.
 
 - Ensures each transaction maintains its own payment state.
 
-- ```private ThreadLocal<Double> amountReceived = ThreadLocal.withInitial(() -> 0.0);```
+- `private ThreadLocal<Double> amountReceived = ThreadLocal.withInitial(() -> 0.0);`
 
 ### 3. Synchronized inventory operations
 
@@ -633,7 +633,7 @@ Each state defines allowed operations and restricts invalid actions.
   - dispense()
   - updateProductStock()
 
-- ```public synchronized void dispense(String productName) { ... }```
+- `public synchronized void dispense(String productName) { ... }`
 
 - Ensures that stock decrement, availability check, and notification happen atomically.
 

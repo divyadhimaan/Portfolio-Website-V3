@@ -173,40 +173,16 @@ export function ReactGitHubMarkdownRenderer({ content, className = "", maxCodeLi
             />
           ),
 
+          
+
           code: ({ inline, className, node, children, ...props }: any) => {
-            // if (inline || node?.tagName !== 'code' || node?.parent?.tagName !== 'pre') {
-            //   return (
-            //     // <InlineCode className={className || ""} {...props}>
-            //     //   {children}
-            //     // </InlineCode>
-            //     <InlineCode
-            //       className={className || ""}
-            //       style={{
-            //         fontSize: "0.96em",
-            //         background: "var(--color-surface-default, #23272e)",
-            //         color: "#c3e88d",
-            //         borderRadius: 4,
-            //         padding: "0.08em 0.38em",
-            //         fontFamily: "inherit",
-            //         letterSpacing: "-0.01em",
-            //       }}
-            //       {...props}
-            //     >
-            //       {children}
-            //     </InlineCode>
-            //   );
-            // }
-            if (inline) {
-              // Inline code
+            if (inline || node?.tagName !== 'code' || node?.parent?.tagName !== 'pre') {
               return (
                 <InlineCode className={className || ""} {...props}>
                   {children}
                 </InlineCode>
               );
             }
-            // const match = /language-(\w+)/.exec(className || "");
-            // const language = match?.[1] || "plaintext";
-            // const code = String(children).replace(/\n$/, "");
 
             const meta = node?.data?.meta || "";
             const { language, label } = parseCodeMeta(className, meta);
