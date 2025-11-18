@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
@@ -40,6 +39,43 @@ function slugify(str: string): string {
     .replace(/\-\-+/g, "-");
 }
 
+function headingText(children: React.ReactNode): string {
+  if (typeof children === 'string') return children;
+  if (Array.isArray(children)) return children.map(headingText).join('');
+  if (
+    typeof children === 'object' &&
+    children !== null &&
+    // @ts-ignore
+    'props' in children &&
+    // @ts-ignore
+    children.props.children !== undefined
+  ) {
+    // @ts-ignore
+    return headingText(children.props.children);
+  }
+  return '';
+}
+
+function parseCodeMeta(className = "", meta = ""): { language: string, label?: string } {
+  // Try to extract language and possible :title=...
+  const langMatch = /language-(\w+)/.exec(className) || [];
+  let language = langMatch[1] ?? "plaintext";
+  let label: string | undefined = undefined;
+
+  // Support for fences like ```js:title=main.js
+  if (meta) {
+    const titleMatch = /title=([\w.\- ]+)/.exec(meta);
+    if (titleMatch) label = titleMatch[1];
+  }
+  // For ```js:title=main.js, parse in className itself
+  const codeFenceTitle = /(\w+):title=([\w.\- ]+)/.exec(className);
+  if (codeFenceTitle) {
+    language = codeFenceTitle[1];
+    label = codeFenceTitle[2];
+  }
+  return { language, label };
+}
+
 interface GitHubMarkdownRendererProps {
   content: string;
   className?: string;
@@ -74,7 +110,7 @@ export function ReactGitHubMarkdownRenderer({ content, className = "", maxCodeLi
           h1: ({ children }) => (
             <HeadingLink
               as="h1"
-              id={slugify(String(children))}
+              id={slugify(headingText(children))}
               style={{
                 borderBottom: "1px solid var(--color-border-default)",
               }}
@@ -85,7 +121,7 @@ export function ReactGitHubMarkdownRenderer({ content, className = "", maxCodeLi
           h2: ({ children }) => (
             <HeadingLink
               as="h2"
-              id={slugify(String(children))}
+              id={slugify(headingText(children))}
               style={{
                 borderBottom: "1px solid var(--color-border-default)",
               }}
@@ -93,10 +129,26 @@ export function ReactGitHubMarkdownRenderer({ content, className = "", maxCodeLi
               {children}
             </HeadingLink>
           ),
-          h3: ({ children }) => <Heading as="h3">{children}</Heading>,
-          h4: ({ children }) => <Heading as="h4">{children}</Heading>,
-          h5: ({ children }) => <Heading as="h5">{children}</Heading>,
-          h6: ({ children }) => <Heading as="h6">{children}</Heading>,
+          h3: ({ children }) => (
+            <HeadingLink as="h3" id={slugify(headingText(children))}>
+              {children}
+            </HeadingLink>
+          ),
+          h4: ({ children }) => (
+            <HeadingLink as="h4" id={slugify(headingText(children))}>
+              {children}
+            </HeadingLink>
+          ),
+          h5: ({ children }) => (
+            <HeadingLink as="h5" id={slugify(headingText(children))}>
+              {children}
+            </HeadingLink>
+          ),
+          h6: ({ children }) => (
+            <HeadingLink as="h6" id={slugify(headingText(children))}>
+              {children}
+            </HeadingLink>
+          ),
 
           a: ({ href, children }) => {
             if (!href) return <>{children}</>;
@@ -122,26 +174,54 @@ export function ReactGitHubMarkdownRenderer({ content, className = "", maxCodeLi
           ),
 
           code: ({ inline, className, node, children, ...props }: any) => {
-            if (inline || node?.tagName !== 'code' || node?.parent?.tagName !== 'pre') {
+            // if (inline || node?.tagName !== 'code' || node?.parent?.tagName !== 'pre') {
+            //   return (
+            //     // <InlineCode className={className || ""} {...props}>
+            //     //   {children}
+            //     // </InlineCode>
+            //     <InlineCode
+            //       className={className || ""}
+            //       style={{
+            //         fontSize: "0.96em",
+            //         background: "var(--color-surface-default, #23272e)",
+            //         color: "#c3e88d",
+            //         borderRadius: 4,
+            //         padding: "0.08em 0.38em",
+            //         fontFamily: "inherit",
+            //         letterSpacing: "-0.01em",
+            //       }}
+            //       {...props}
+            //     >
+            //       {children}
+            //     </InlineCode>
+            //   );
+            // }
+            if (inline) {
+              // Inline code
               return (
                 <InlineCode className={className || ""} {...props}>
                   {children}
                 </InlineCode>
               );
             }
-            const match = /language-(\w+)/.exec(className || "");
-            const language = match?.[1] || "plaintext";
+            // const match = /language-(\w+)/.exec(className || "");
+            // const language = match?.[1] || "plaintext";
+            // const code = String(children).replace(/\n$/, "");
+
+            const meta = node?.data?.meta || "";
+            const { language, label } = parseCodeMeta(className, meta);
             const code = String(children).replace(/\n$/, "");
+
 
             return (
               <CodeBlock
-                codes={[
-                  {
-                    code: code,
-                    language: language,
-                    label: language.charAt(0).toUpperCase() + language.slice(1),
-                  },
-                ]}
+              codes={[
+                {
+                  code,
+                  language,
+                  label: label || (language.charAt(0).toUpperCase() + language.slice(1)),
+                },
+              ]}
                 copyButton={true}
                 maxLines={maxCodeLines}
               />

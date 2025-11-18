@@ -67,75 +67,75 @@ const highlightCode = (code: string, language: string): React.ReactNode => {
 
         // Skip whitespace
         if (/^\s+$/.test(token)) {
-            return <span key={index}>{token}</span>;
+            return <span key={`${index}-${token}`}>{token}</span>;
         }
 
         // Comments (single line and multi-line)
         if (token.startsWith('//') || (token.startsWith('/*') && token.endsWith('*/'))) {
-            return <span key={index} className="text-gray-500 italic">{token}</span>;
+            return <span key={`${index}-${token}`} className="text-gray-500 italic">{token}</span>;
         }
 
         // Annotations (Java)
         if (token.startsWith('@')) {
-            return <span key={index} className="text-yellow-300">{token}</span>;
+            return <span key={`${index}-${token}`} className="text-yellow-300">{token}</span>;
         }
 
         // Strings
         if ((token.startsWith('"') && token.endsWith('"')) ||
             (token.startsWith("'") && token.endsWith("'"))) {
-            return <span key={index} className="text-green-400">{token}</span>;
+            return <span key={`${index}-${token}`} className="text-green-400">{token}</span>;
         }
 
         // Numbers (including decimals)
         if (/^\d+(\.\d+)?$/.test(token)) {
-            return <span key={index} className="text-purple-400">{token}</span>;
+            return <span key={`${index}-${token}`} className="text-purple-400">{token}</span>;
         }
 
         // Multi-character operators first (to avoid splitting them)
         if (['&&', '||', '==', '!=', '<=', '>=', '++', '--', '>>', '<<', '::', '->', '=>', '===', '!==', '**', '//'].includes(token)) {
-            return <span key={index} className="text-orange-400 font-medium">{token}</span>;
+            return <span key={`${index}-${token}`} className="text-orange-400 font-medium">{token}</span>;
         }
 
         // Keywords
         if (keywords.includes(token)) {
-            return <span key={index} className="text-blue-400 font-semibold">{token}</span>;
+            return <span key={`${index}-${token}`} className="text-blue-400 font-semibold">{token}</span>;
         }
 
         // Types
         if (types.includes(token)) {
-            return <span key={index} className="text-yellow-400 font-medium">{token}</span>;
+            return <span key={`${index}-${token}`} className="text-yellow-400 font-medium">{token}</span>;
         }
 
         // Functions and methods
         if (functions.some(func => token.includes(func))) {
-            return <span key={index} className="text-cyan-400">{token}</span>;
+            return <span key={`${index}-${token}`} className="text-cyan-400">{token}</span>;
         }
 
         // Method calls (words followed by parentheses in next tokens)
         if (/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(token)) {
             const nextToken = tokens[index + 1];
             if (nextToken && nextToken.trim() === '(') {
-                return <span key={index} className="text-cyan-400">{token}</span>;
+                return <span key={`${index}-${token}`} className="text-cyan-400">{token}</span>;
             }
         }
 
         // Single character operators
         if (operators.includes(token)) {
-            return <span key={index} className="text-orange-400">{token}</span>;
+            return <span key={`${index}-${token}`} className="text-orange-400">{token}</span>;
         }
 
         // Punctuation
         if (punctuation.includes(token)) {
-            return <span key={index} className="text-gray-300">{token}</span>;
+            return <span key={`${index}-${token}`} className="text-gray-300">{token}</span>;
         }
 
         // Class names (PascalCase)
         if (/^[A-Z][a-zA-Z0-9]*$/.test(token)) {
-            return <span key={index} className="text-emerald-400">{token}</span>;
+            return <span key={`${index}-${token}`} className="text-emerald-400">{token}</span>;
         }
 
         // Default text
-        return <span key={index} className="text-gray-100">{token}</span>;
+        return <span key={`${index}-${token}`} className="text-gray-100">{token}</span>;
     });
 };
 
