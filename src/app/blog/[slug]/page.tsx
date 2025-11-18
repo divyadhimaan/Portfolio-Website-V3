@@ -151,7 +151,6 @@ export default async function Blog({
                 <img
                   src={`${baseURL}${person.avatar}`}
                   alt={person.name}
-                  style={{ width: 38, height: 38, borderRadius: '50%' }}
                 />
               }
               <Text variant="body-default-m" as="div" style={{ fontWeight: 500 }}>
