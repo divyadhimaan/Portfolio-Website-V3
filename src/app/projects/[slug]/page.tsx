@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   const slugPath = Array.isArray(slug) ? slug.join("/") : slug || "";
 
   const posts = getPosts(["src", "resources", "projectwork"]);
-  let post = posts.find((post) => post.slug === slugPath);
+  const post = posts.find((post) => post.slug === slugPath);
 
   if (!post) return {};
 
@@ -41,7 +41,7 @@ export default async function Project({ params }: PageParams) {
   const { slug } = await params;
   const slugPath = Array.isArray(slug) ? slug.join("/") : slug || "";
 
-  let post = getPosts(["src", "resources", "projectwork"]).find((post) => post.slug === slugPath);
+  const post = getPosts(["src", "resources", "projectwork"]).find((post) => post.slug === slugPath);
 
   if (!post) return notFound();
 
