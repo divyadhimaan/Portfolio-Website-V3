@@ -30,7 +30,7 @@ function getMDXFiles(dir: string) {
     return [];
   }
 
-  const files =  fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
+  const files =  fs.readdirSync(dir).filter((file) => path.extname(file) === ".md");
   return files;
 }
 

@@ -292,10 +292,10 @@ export default async function Blog({
       {/* STICKY TOC: only visible on large screens */}
       <Column
         maxWidth={13}
-        paddingLeft="36"
+        paddingLeft="48"
         fitHeight
         position="sticky"
-        top="78"
+        top="64"
         gap="16"
         m={{ hide: true }}
         style={{ marginTop: 32 }}
