@@ -1,6 +1,7 @@
 "use client";
 
-import React from 'react';
+import React, { useRef, useState, isValidElement } from 'react';
+import type { ReactNode, ReactElement, ComponentPropsWithoutRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
@@ -17,6 +18,8 @@ import {
   InlineCode,
   SmartLink,
   Media,
+  Icon,
+  Button
 } from "@once-ui-system/core";
 
 // GitHub style layout, theme-colored
@@ -42,34 +45,86 @@ function slugify(str: string): string {
     .replace(/\-\-+/g, "-");
 }
 
-function headingText(children: React.ReactNode): string {
-  let result = '';
+function headingText(children: ReactNode): string {
+  let result = "";
 
-  const walk = (node: React.ReactNode) => {
-    if (typeof node === 'string' || typeof node === 'number') {
+  const walk = (node: ReactNode): void => {
+    if (typeof node === "string" || typeof node === "number") {
       result += String(node);
       return;
     }
-
     if (Array.isArray(node)) {
       node.forEach(walk);
       return;
     }
+    if (isValidElement(node)) {
+      const element = node as ReactElement;
 
-    if (
-      node &&
-      typeof node === 'object' &&
-      'props' in (node as any) &&
-      (node as any).props?.children
-    ) {
-      walk((node as any).props.children);
+      // Recursively read children
+      if (isValidElement(node)) {
+        const element = node as ReactElement<{ children?: ReactNode }>;
+  
+        if (element.props.children) {
+          walk(element.props.children);
+        }
+      }
     }
   };
 
   walk(children);
-
   return result.trim();
 }
+
+// Copy button for code block
+function CopyButton({ getText }: { getText: () => string }) {
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(getText());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (error) {
+      setCopied(false);
+    }
+  }
+
+  return (
+    <Button
+      prefixIcon={copied ? "check" : "copy"}
+      variant='primary'
+      size='s'
+      onClick={handleCopy}
+      className="copy-btn"
+      style={{
+        position: "absolute",
+        top: 4,
+        right: 4,
+        // zIndex: 9999,   
+        // border: "none",
+        // borderRadius: 4,
+        // color: "rgba(175, 184, 193, 0.2)",
+        // background: "transparent",
+        // cursor: "pointer",
+      }}
+      aria-label={copied ? "Copied!" : "Copy code"}
+      tabIndex={0}
+      type="button"
+    >
+      {/* <Icon
+        name={copied ? "copyCheck" : "copy"}
+        onBackground="accent-strong"
+      /> */}
+      
+    </Button>
+  );
+}
+
+type CodeProps = ComponentPropsWithoutRef<"code"> & {
+  inline?: boolean;
+  className?: string;
+  children?: ReactNode;
+};
 
 interface GitHubMarkdownRendererProps {
   content: string;
@@ -99,22 +154,34 @@ export function ReactGitHubMarkdownRenderer({
           p: ({ children }) => {
             const flat = React.Children.toArray(children);
           
-            // Detect actual block-level elements that should not be inside <p>
-            const containsBlock = flat.some((child: any) => {
+            const containsBlock = flat.some((child: ReactNode) => {
               if (!child) return false;
-          
-              // Real block code
-              if (child.type === 'pre') return true;
-          
-              // Sometimes rehype creates <code class="language-xxx"> without <pre>
-              if (child.type === 'code' && child.props?.className?.includes("language-"))
-                return true;
-          
+            
+              if (isValidElement(child)) {
+                const element = child as ReactElement<{
+                  className?: string;
+                  children?: ReactNode;
+                }>;
+            
+                const type = element.type;
+                const props = element.props;
+            
+                if (type === "pre") return true;
+            
+                if (
+                  type === "code" &&
+                  typeof props.className === "string" &&
+                  props.className.includes("language-")
+                ) {
+                  return true;
+                }
+              }
+            
               return false;
             });
           
             if (containsBlock) {
-              return <>{children}</>; // Do NOT wrap in <p>
+              return <>{children}</>; 
             }
           
             return (
@@ -191,7 +258,7 @@ export function ReactGitHubMarkdownRenderer({
             />
           ),
 
-          code: ({ inline, className, children, ...props }: any) => {
+          code: ({ inline, className, children, ...props }: CodeProps) => {
             if (inline) {
               return (
                 <InlineCode className={className || ""} {...props}>
@@ -199,14 +266,23 @@ export function ReactGitHubMarkdownRenderer({
                 </InlineCode>
               );
             }
+
+
+            const codeRef = useRef<HTMLElement>(null);
+
             // For code blocks: let rehype-highlight style them, don't use a custom CodeBlock!
             return (
-              <pre>
-                <code className={className || ""} {...props}>
-                  {children}
-                </code>
-              </pre>
+              <div style={{ position: "relative" }}>
+                <CopyButton getText={() => codeRef.current?.innerText || ""} />
+          
+                <pre>
+                  <code ref={codeRef} className={className || ""} {...props}>
+                    {children}
+                  </code>
+                </pre>
+              </div>
             );
+          
           },
 
           blockquote: ({ children }) => (

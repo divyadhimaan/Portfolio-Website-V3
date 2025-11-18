@@ -3,8 +3,8 @@ import { getPosts } from "@/app/utils/utils";
 import { Meta, Schema, AvatarGroup, Button, Column, Row, Heading, Media, Text } from "@once-ui-system/core";
 import { baseURL, about, person, projects } from "@/resources";
 import { formatDate } from "@/app/utils/formatDate";
-import { ScrollToHash, CustomMDX } from "@/components";
-import { Metadata } from "next";
+import { ScrollToHash } from "@/components";
+import type { Metadata } from "next";
 import { serialize } from 'next-mdx-remote/serialize'
 
 
@@ -106,7 +106,7 @@ export default async function Project({ params }: PageParams) {
           </Text>
         </Row>
         <div>
-          <CustomMDX source={await serialize(post.content)} />
+          {/* <CustomMDX source={await serialize(post.content)} /> */}
         </div>
       </Column>
       <ScrollToHash />

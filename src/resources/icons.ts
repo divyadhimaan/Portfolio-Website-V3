@@ -45,7 +45,7 @@ import { FaCodepen, FaPython, FaJava, FaReact, FaAws } from "react-icons/fa";
 import { SiSpringboot, SiApachespark, SiDatadog } from "react-icons/si";
 import { MdOutlineNotes } from "react-icons/md";
 
-
+import { TbCopy, TbCopyCheck } from "react-icons/tb";
 
 export const iconLibrary: Record<string, IconType> = {
   chevronUp: HiChevronUp,
@@ -93,6 +93,7 @@ export const iconLibrary: Record<string, IconType> = {
   reactjs: FaReact,
   aws: FaAws,
   datadog: SiDatadog,
+  copy: TbCopy,
 };
 
 export type IconLibrary = typeof iconLibrary;
