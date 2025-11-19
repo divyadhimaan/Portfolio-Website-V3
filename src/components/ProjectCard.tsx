@@ -61,7 +61,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               <Row gap="8" wrap>
               {languages?.length > 0 && ( 
                   languages.map((lang, index) => (
-                  <Badge key={index} background="brand-alpha-weak" paddingX="12" paddingY="4" onBackground="neutral-strong" textVariant="label-default-s" arrow={false}>
+                  <Badge key={`${index}-${lang}`} background="brand-alpha-weak" paddingX="12" paddingY="4" onBackground="neutral-strong" textVariant="label-default-s" arrow={false}>
                     <Row paddingY="2">{lang}</Row>
                   </Badge>
                 ))

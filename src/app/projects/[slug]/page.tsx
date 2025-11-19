@@ -7,7 +7,6 @@ import { ScrollToHash } from "@/components";
 import type { Metadata } from "next";
 import { serialize } from 'next-mdx-remote/serialize'
 
-
 interface PageParams {
   params: Promise<{ slug: string | string[] }>;
 }
@@ -21,17 +20,18 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const { slug } = await params;
-  const slugPath = Array.isArray(slug) ? slug.join("/") : slug || "";
+
+  const slugPath = Array.isArray(slug) ? slug.join("/") : slug;
 
   const posts = getPosts(["src", "resources", "projectwork"]);
-  const post = posts.find((post) => post.slug === slugPath);
+  const post = posts.find((p) => p.slug === slugPath);
 
   if (!post) return {};
 
   return Meta.generate({
     title: post.metadata.title,
     description: post.metadata.summary,
-    baseURL: baseURL,
+    baseURL,
     image: post.metadata.image || `/generate-og?title=${post.metadata.title}`,
     path: `${projects.path}/${post.slug}`,
   });
@@ -39,11 +39,22 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
 
 export default async function Project({ params }: PageParams) {
   const { slug } = await params;
+
+  if (!slug) {
+    console.log('slug not exist')
+    return notFound();
+  }
+
   const slugPath = Array.isArray(slug) ? slug.join("/") : slug || "";
 
-  const post = getPosts(["src", "resources", "projectwork"]).find((post) => post.slug === slugPath);
+  const allPosts = getPosts(["src", "resources", "projectwork"]);
+  const post = allPosts.find((post) => post.slug === slugPath);
 
-  if (!post) return notFound();
+  if (!post) {
+    console.error('Post not found for slug:', slugPath);
+    console.error('Available slugs:', allPosts.map(p => p.slug));
+    return notFound();
+  }
 
   // Debug logging - remove in production
   console.log('Post found:', post.slug);
