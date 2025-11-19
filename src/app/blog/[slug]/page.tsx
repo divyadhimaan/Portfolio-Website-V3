@@ -8,6 +8,7 @@ import {
   Column,
   Heading,
   HeadingNav,
+  Avatar,
   Icon,
   Row,
   Text,
@@ -148,10 +149,12 @@ export default async function Blog({
             <Row vertical="center" gap="8">
               {avatars.length > 0 ?
                 <AvatarGroup size="m" avatars={avatars} /> :
-                <img
-                  src={`${baseURL}${person.avatar}`}
-                  alt={person.name}
-                />
+                <Avatar
+                    marginRight="8"
+                    style={{ marginLeft: "-0.75rem" }}
+                    src={person.avatar}
+                    size="m"
+                  />
               }
               <Text variant="body-default-m" as="div" style={{ fontWeight: 500 }}>
                 {person.name}
